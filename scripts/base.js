@@ -31,18 +31,18 @@ function createScenes() {
 	/** Menu Scene End **/
 	
 	/** Tutorial Scene Start **/
-	sceneTutorial = new BABYLON.Scene(engine);
-	initInputSystem(sceneTutorial)
-	let camTutorial = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0,0,5), sceneTutorial);
+	SceneTutorial.scene = new BABYLON.Scene(engine);
+	initInputSystem(SceneTutorial.scene)
+	let camTutorial = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0, 0, 5), SceneTutorial);
 	camTutorial.setTarget(BABYLON.Vector3.Zero());
 	camTutorial.attachControl(canvas, true);
 	setupTutorial();
 	/** Tutorial Scene End **/
 	
 	/** Main Scene Start **/
-	sceneMain = new BABYLON.Scene(engine);
-	initInputSystem(sceneMain)
-	camMain = new BABYLON.UniversalCamera("MainCam", new BABYLON.Vector3(0,0,5), sceneMain);
+	SceneMain.scene = new BABYLON.Scene(engine);
+	initInputSystem(SceneMain.scene)
+	camMain = new BABYLON.UniversalCamera("MainCam", new BABYLON.Vector3(0, 0, 5), SceneMain);
 	camMain.setTarget(BABYLON.Vector3.Zero());
 	camMain.attachControl(canvas, true);
 	setupMain();
