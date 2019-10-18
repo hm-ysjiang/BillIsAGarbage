@@ -1,9 +1,10 @@
 class SceneMenu {
 	static scene = null;
+	static camera = null;
 	static manager = null;
 	static anchor = null;
 
-	static setup = function (){
+	static setup(){
 		/*sceneMenu.onBeforeRenderObservable.add(()=>{
 			if (sceneMenu.inputMap["p"]){
 				scenePhase = 2;
@@ -28,17 +29,29 @@ class SceneMenu {
 		panelBtn.addControl(btnPlay);
 		btnPlay.text = "Play";
 		btnPlay.onPointerDownObservable.add(()=>{
-			scenePhase = 2;
-			console.log("Switch to Game Scene");
+			if (SceneMenu.hasFocus()){
+				scenePhase = 2;
+				SceneMenu.camera.detachControl();
+				SceneMain.camera.attachControl(canvas, true);
+				console.log("Switch to Game Scene");
+			}
 		});
 		let btnTutorial = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(btnTutorial);
 		btnTutorial.text = "Tutorial";
 		btnTutorial.onPointerDownObservable.add(()=>{
-			scenePhase = 1;
-			console.log("Switch to Tutorial Scene");
+			if (SceneMenu.hasFocus()){
+				scenePhase = 1;
+				SceneMenu.camera.detachControl();
+				SceneTutorial.camera.attachControl(canvas, true);
+				console.log("Switch to Tutorial Scene");
+			}
 		});
 		panelBtn.columns = 2;
+	}
+	
+	static hasFocus(){
+		return scenePhase != 1 && scenePhase != 2;
 	}
 }
 

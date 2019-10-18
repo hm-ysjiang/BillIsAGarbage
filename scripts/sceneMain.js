@@ -7,5 +7,9 @@ class SceneMain{
     static setup() {
 
     }
+	
+	static hasFocus(){
+		return scenePhase == 2;
+	}
 }
 

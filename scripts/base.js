@@ -24,28 +24,26 @@ function createScenes() {
 	/** Menu Scene Start **/
 	SceneMenu.scene = new BABYLON.Scene(engine);
 	initInputSystem(SceneMenu.scene)
-	let camMenu = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0,0,-5), SceneMenu.scene);
-	camMenu.setTarget(BABYLON.Vector3.Zero());
-	camMenu.attachControl(canvas, true);
+	SceneMenu.camera = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0,0,-5), SceneMenu.scene);
+	SceneMenu.camera.setTarget(BABYLON.Vector3.Zero());
+	SceneMenu.camera.attachControl(canvas, true);
 	SceneMenu.setup();
 	/** Menu Scene End **/
 	
 	/** Tutorial Scene Start **/
 	SceneTutorial.scene = new BABYLON.Scene(engine);
 	initInputSystem(SceneTutorial.scene)
-	let camTutorial = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0, 0, 5), SceneTutorial);
-	camTutorial.setTarget(BABYLON.Vector3.Zero());
-	camTutorial.attachControl(canvas, true);
-	setupTutorial();
+	SceneTutorial.camera = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0, 0, 5), SceneTutorial.scene);
+	SceneTutorial.camera.setTarget(BABYLON.Vector3.Zero());
+	SceneTutorial.setup();
 	/** Tutorial Scene End **/
 	
 	/** Main Scene Start **/
 	SceneMain.scene = new BABYLON.Scene(engine);
 	initInputSystem(SceneMain.scene)
-	camMain = new BABYLON.UniversalCamera("MainCam", new BABYLON.Vector3(0, 0, 5), SceneMain);
-	camMain.setTarget(BABYLON.Vector3.Zero());
-	camMain.attachControl(canvas, true);
-	setupMain();
+	SceneMain.camera = new BABYLON.UniversalCamera("MainCam", new BABYLON.Vector3(0, 0, 5), SceneMain.scene);
+	SceneMain.camera.setTarget(BABYLON.Vector3.Zero());
+	SceneMain.setup();
 	/** Main Scene End **/
 }
 
@@ -75,10 +73,10 @@ createScenes(); // Call the createScene function
 engine.runRenderLoop(function () { 
 	switch (scenePhase){
 	case 1:
-		sceneTutorial.render();
+		SceneTutorial.scene.render();
 		break;
 	case 2:
-		sceneMain.render();
+		SceneMain.scene.render();
 		break;
 	case 0:
 	default:
