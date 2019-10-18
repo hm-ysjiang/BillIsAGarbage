@@ -5,20 +5,37 @@ class SceneMenu {
 	static anchor = null;
 
 	static setup(){
-		/*sceneMenu.onBeforeRenderObservable.add(()=>{
-			if (sceneMenu.inputMap["p"]){
-				scenePhase = 2;
-				console.log("Switch to Game Scene");
-			}
-			else if (sceneMenu.inputMap["t"]){
-				scenePhase = 1;
-				console.log("Switch to Tutorial Scene");
-			}
-		});*/
+		SceneMenu.camera.inputs.clear();
 		SceneMenu.manager = new BABYLON.GUI.GUI3DManager(SceneMenu.scene);
 		
-		let panelTxt = new BABYLON.GUI.PlanePanel();
-		// panelTxt.
+		let adv = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("TextUI");
+		let panelTxt1 = new BABYLON.GUI.Rectangle();
+		let panelTxt2 = new BABYLON.GUI.Rectangle();
+		adv.addControl(panelTxt1);
+		adv.addControl(panelTxt2);
+		panelTxt1.width = "600px";
+		panelTxt1.height = "100px";
+		panelTxt1.isVertical = true;
+		panelTxt1.fontSize = 64;
+		panelTxt1.thickness = 0;
+        panelTxt1.top = "50";
+		panelTxt1.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+		panelTxt2.width = "600px";
+		panelTxt2.height = "100px";
+		panelTxt2.isVertical = true;
+		panelTxt2.fontSize = 64;
+		panelTxt2.thickness = 0;
+        panelTxt2.top = "200";
+		panelTxt2.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+		let txt1 = new BABYLON.GUI.TextBlock("Welcome");
+		let txt2 = new BABYLON.GUI.TextBlock("Title");
+		panelTxt1.addControl(txt1);
+		panelTxt2.addControl(txt2);
+		txt1.text = "Welcome to";
+		txt2.text = "Bill Is A Garbage";
+		txt1.color = "white";
+		txt2.color = "white";
+		
 		
 		let panelBtn = new BABYLON.GUI.PlanePanel();
 		panelBtn.margin = 0.2;
