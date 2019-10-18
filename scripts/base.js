@@ -24,7 +24,7 @@ function createScenes() {
 	/** Menu Scene Start **/
 	SceneMenu.scene = new BABYLON.Scene(engine);
 	initInputSystem(SceneMenu.scene)
-	let camMenu = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0,0,5), SceneMenu.scene);
+	let camMenu = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0,0,-5), SceneMenu.scene);
 	camMenu.setTarget(BABYLON.Vector3.Zero());
 	camMenu.attachControl(canvas, true);
 	SceneMenu.setup();
