@@ -22,17 +22,17 @@ var scenePhase = 0;
  *****************************/
 function createScenes() {
 	/** Menu Scene Start **/
-	sceneMenu = new BABYLON.Scene(engine);
-	initInputSystem(sceneMenu)
-	let camMenu = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0,0,5), sceneMenu);
+	SceneMenu.scene = new BABYLON.Scene(engine);
+	initInputSystem(SceneMenu.scene)
+	let camMenu = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0,0,5), SceneMenu.scene);
 	camMenu.setTarget(BABYLON.Vector3.Zero());
 	camMenu.attachControl(canvas, true);
-	setupMenu();
+	SceneMenu.setup();
 	/** Menu Scene End **/
 	
 	/** Tutorial Scene Start **/
 	sceneTutorial = new BABYLON.Scene(engine);
-	initInputSystem(sceneMenu)
+	initInputSystem(sceneTutorial)
 	let camTutorial = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0,0,5), sceneTutorial);
 	camTutorial.setTarget(BABYLON.Vector3.Zero());
 	camTutorial.attachControl(canvas, true);
@@ -47,18 +47,16 @@ function createScenes() {
 	camMain.attachControl(canvas, true);
 	setupMain();
 	/** Main Scene End **/
-	
-	
 }
 
 function initInputSystem(scene) {
 	scene.inputMap = {};
 	scene.actionManager = new BABYLON.ActionManager(scene);
 	scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function (evt) {
-		inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+		scene.inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
 	}));
 	scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {
-		inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+		scene.inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
 	}));
 }
 
@@ -84,7 +82,7 @@ engine.runRenderLoop(function () {
 		break;
 	case 0:
 	default:
-		sceneMenu.render();
+		SceneMenu.scene.render();
 		break;
 	}
 });
