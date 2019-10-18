@@ -23,6 +23,7 @@ var scenePhase = 0;
 function createScenes() {
 	/** Menu Scene Start **/
 	sceneMenu = new BABYLON.Scene(engine);
+	initInputSystem(sceneMenu)
 	let camMenu = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0,0,5), sceneMenu);
 	camMenu.setTarget(BABYLON.Vector3.Zero());
 	camMenu.attachControl(canvas, true);
@@ -31,6 +32,7 @@ function createScenes() {
 	
 	/** Tutorial Scene Start **/
 	sceneTutorial = new BABYLON.Scene(engine);
+	initInputSystem(sceneMenu)
 	let camTutorial = new BABYLON.FreeCamera("MainCam", new BABYLON.Vector3(0,0,5), sceneTutorial);
 	camTutorial.setTarget(BABYLON.Vector3.Zero());
 	camTutorial.attachControl(canvas, true);
@@ -39,6 +41,7 @@ function createScenes() {
 	
 	/** Main Scene Start **/
 	sceneMain = new BABYLON.Scene(engine);
+	initInputSystem(sceneMain)
 	camMain = new BABYLON.UniversalCamera("MainCam", new BABYLON.Vector3(0,0,5), sceneMain);
 	camMain.setTarget(BABYLON.Vector3.Zero());
 	camMain.attachControl(canvas, true);
@@ -47,6 +50,18 @@ function createScenes() {
 	
 	
 }
+
+function initInputSystem(scene) {
+	scene.inputMap = {};
+	scene.actionManager = new BABYLON.ActionManager(scene);
+	scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function (evt) {
+		inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+	}));
+	scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {
+		inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+	}));
+}
+
 /***************************
  *	Functions Section End  *
  ***************************/
