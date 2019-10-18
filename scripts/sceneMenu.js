@@ -3,6 +3,6 @@ var sceneMenu = null;
 
 function setupMenu(){
 	sceneMenu.onBeforeRenderObservable.add(()=>{
-		let 
+		
 	});
 }
