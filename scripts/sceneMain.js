@@ -7,7 +7,7 @@ class SceneMain {
     static spacecraft = null;
     static earth = null;
     static sceneNodes = []
-	static tmp;
+    static tmp;
 
     static setup() {
         SceneMain.assetsManager = new BABYLON.AssetsManager(SceneMain.scene);
@@ -15,24 +15,26 @@ class SceneMain {
         let scene = SceneMain.scene;
         let assetsMgr = SceneMain.assetsManager;
         let cam = SceneMain.camera;
-		
+        // scene.collisionsEnabled = true;
+        scene.enablePhysics(new BABYLON.Vector3(0, 0, 0), new BABYLON.OimoJSPlugin());
+        
 		cam.noRotationConstraint = true;
 		cam.inputs.clear();
 		
         let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
 
-		SceneMain.spacecraft = new Spacecraft(scene, assetsMgr, cam);
-		SceneMain.earth = new Earth(scene, assetsMgr);
+        SceneMain.spacecraft = new Spacecraft(scene, assetsMgr, cam);
+        SceneMain.earth = new Earth(scene, assetsMgr);
         SceneMain.addNode(SceneMain.spacecraft);
         SceneMain.addNode(SceneMain.earth);
         SceneMain.addNode(new UiMain(scene, cam));
-		
-		Scrap1.setup(scene, assetsMgr);
 
-        scene.registerAfterRender(()=>SceneMain.sceneNodes.forEach((s, i) => {
+        Scrap1.setup(scene, assetsMgr);
+
+        scene.registerAfterRender(() => SceneMain.sceneNodes.forEach((s, i) => {
             s.update();
         }))
-		
+
         assetsMgr.load();
     }
 
@@ -40,10 +42,10 @@ class SceneMain {
         node.setup();
         SceneMain.addSetupedNode(node);
     }
-	
-	static addSetupedNode(node){
-		SceneMain.sceneNodes.push(node);
-	}
+
+    static addSetupedNode(node) {
+        SceneMain.sceneNodes.push(node);
+    }
 
     static hasFocus() {
         return scenePhase == 2;
