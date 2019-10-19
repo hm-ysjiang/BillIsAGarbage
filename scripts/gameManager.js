@@ -21,10 +21,11 @@ class GameManager {
     }
 
     onCollect(craft, scrap) {
-        console.log("kill")
-        scrap.dispose()
+        delete Scrap1.scraps[Scrap1.scraps.indexOf(scrap)];
+        scrap.model.dispose()
         this.money += 10;
         this.score += 10;
+        this.updateUi()
     }
 
     onDamage() {

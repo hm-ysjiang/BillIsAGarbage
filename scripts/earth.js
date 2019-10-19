@@ -2,6 +2,11 @@ class Earth extends SceneNode {
     setup() {
         this.model = new BABYLON.TransformNode();
 
+        this.model.collibox = new BABYLON.MeshBuilder.CreateSphere("earth", { diameter: 1000 }, this.scene);
+        this.model.collibox.visibility = false;
+        this.model.collibox.parent = this.model;
+
+
         this.assetsManager.addMeshTask('meshs', "", "mesh/", "Earth_1_12756.glb").onSuccess = (function (task) {
 
             task.loadedMeshes.forEach(mesh => {
