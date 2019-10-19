@@ -5,12 +5,13 @@ class Spacecraft extends SceneNode {
     }
 
     setup() {
+		this.prevCamLook = null;
+		this.prevForward = null;
+		
         this.model = new BABYLON.TransformNode();
         this.model.position = new BABYLON.Vector3(2496.2, 0, 0)
         this.model.lookAt(BABYLON.Vector3.Zero());
         this.model.scaling = new BABYLON.Vector3(0.001, 0.001, 0.001)
-		this.prevCamLook = null;
-		this.prevForward = null;
 
         this.model.collibox = new BABYLON.MeshBuilder.CreateBox("spacecraft", { width: 200, height: 200, depth: 200 }, this.scene);
         this.model.collibox.visibility = false;
@@ -29,6 +30,18 @@ class Spacecraft extends SceneNode {
             });
 
         }).bind(this)
+		this.assetsManager.addMeshTask('meshs', "", "mesh/", "jellyfish_net_spongebob.gltf").onSuccess = (task=>{
+			task.loadedMeshes.forEach(mesh => {
+                // leave meshes already parented to maintain model hierarchy:
+                if (!mesh.parent) {
+					mesh.position = this.model.position.clone()
+					mesh.position.y += 62
+					mesh.scaling = new BABYLON.Vector3(0.3, 0.3, 0.3)
+					mesh.rotate(BABYLON.Axis.Y, Math.PI)
+                    mesh.parent = this.model
+                }
+            });
+		}).bind(this)
 		
 		this.scene.registerBeforeRender((()=>{
 			let curCamLook = this.camera.getFrontPosition(1);
