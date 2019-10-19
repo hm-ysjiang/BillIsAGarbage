@@ -6,6 +6,7 @@ class SceneMain {
     static assetsManager = null;
     static spacecraft = null;
 	static earth = null;
+	static scrap = null;
 	
     static setup() {
         SceneMain.assetsManager = new BABYLON.AssetsManager(SceneMain.scene);
@@ -13,6 +14,8 @@ class SceneMain {
 		let scene = SceneMain.scene;
 		let assetsMgr = SceneMain.assetsManager;
 		let cam = SceneMain.camera
+		
+		cam.inputs.clear();
         
 		let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
 		
@@ -20,6 +23,10 @@ class SceneMain {
         scene.registerAfterRender(SceneMain.spacecraft.update.bind(SceneMain.spacecraft));
 		SceneMain.earth = new Earth(scene, assetsMgr, cam);
         scene.registerAfterRender(SceneMain.earth.update.bind(SceneMain.earth));
+		
+		SceneMain.scrap = new Scrap1(scene, assetsMgr, cam);
+        scene.registerAfterRender(SceneMain.scrap.update.bind(SceneMain.scrap));
+		
         assetsMgr.load();
     }
 
