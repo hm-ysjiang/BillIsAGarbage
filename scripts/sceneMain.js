@@ -47,7 +47,7 @@ class SceneMain {
         SceneMain.scene.registerAfterRender(() => {
             Scrap1.scraps.forEach((v) => {
                 if (SceneMain.spacecraft.model.collibox.intersectsMesh(v.model.collibox)) {
-                    SceneMain.gameManager.onCollect(SceneMain.spacecraft, v);
+                    SceneMain.gameManager.onCollect(v);
                 }
             }
             )
