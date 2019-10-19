@@ -4,6 +4,7 @@ class SceneTutorial{
 	static scene = null;
 	static camera = null;
 	static manager = null;
+	static spacecraft = null;
 	
 	static setup() {
 		SceneTutorial.manager = new BABYLON.GUI.GUI3DManager(SceneTutorial.scene);
@@ -35,6 +36,7 @@ class SceneTutorial{
             SceneTutorial.rotateByMouse(scene, cam);
 		});
 		
+		let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
 		let ground = BABYLON.MeshBuilder.CreatePlane("ground", {height: 100, width: 40, sourcePlane: 
 				(new BABYLON.Plane(0, 1, 0, 5)).normalize()});
 		ground.material = grayMaterial;
@@ -43,6 +45,14 @@ class SceneTutorial{
 		panelBtn.margin = 0.1;
 		panelBtn.z = 10;
 		manager.addControl(panelBtn);
+		
+		SceneTutorial.spacecraft = new Spacecraft(scene, new BABYLON.AssetsManager(scene), cam);
+		SceneTutorial.spacecraft.setup(false);
+		SceneTutorial.spacecraft.assetsManager.load()
+		SceneTutorial.spacecraft.model.position = new BABYLON.Vector3(1, 12, 30)
+		SceneTutorial.spacecraft.model.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI / 6);
+		SceneTutorial.spacecraft.model.rotate(new BABYLON.Vector3(1, 0, 0), Math.PI / 6);
+        SceneTutorial.spacecraft.model.scaling = new BABYLON.Vector3(0.075, 0.075, 0.075)
 		
 		let tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(tmpBtn);
@@ -83,7 +93,7 @@ class SceneTutorial{
 	}
 
     static translateByInput(scene, cam) {
-        let vel = 0.2;
+        let vel = 0.05;
         let view = cam.getFrontPosition(1).subtract(cam.position).normalize();
 		view.y = 0;
         let rightV = BABYLON.Vector3.Cross(BABYLON.Axis.Y, view).normalize();

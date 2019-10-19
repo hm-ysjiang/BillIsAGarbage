@@ -4,11 +4,14 @@ class Spacecraft extends SceneNode {
         this.camera = camera
     }
 
-    setup() {
-        this.model = initPhysics(new BABYLON.MeshBuilder.CreateBox("spacecraft", { width: 200, height: 200, depth: 200 }, this.scene),
-            BABYLON.PhysicsImpostor.BoxImpostor,
-            { mass: 10 },
-            this.scene);
+    setup(withPhysics = true) {
+		if (withPhysics)
+			this.model = initPhysics(new BABYLON.MeshBuilder.CreateBox("spacecraft", { width: 200, height: 200, depth: 200 }, this.scene),
+				BABYLON.PhysicsImpostor.BoxImpostor,
+				{ mass: 10 },
+				this.scene);
+		else
+			this.model = new BABYLON.MeshBuilder.CreateBox("spacecraft", { width: 200, height: 200, depth: 200 }, this.scene)
         this.model.visibility = false;
         this.model.position = new BABYLON.Vector3(0, 0, 2500);
         this.model.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI);
@@ -19,7 +22,7 @@ class Spacecraft extends SceneNode {
         this.assetsManager.addMeshTask('meshs', "", "mesh/", "aero4.obj").onSuccess = (function (task) {
 
             task.loadedMeshes.forEach(mesh => {
-                mesh.checkCollisions = true;
+                mesh.checkCollisions = withPhysics;
                 // leave meshes already parented to maintain model hierarchy:
                 if (!mesh.parent) {
                     mesh.parent = this.model
