@@ -19,10 +19,7 @@ class Scrap1 {
 	
 	constructor(scene, mesh){
 		this.scene = scene;
-		this.model = initPhysics(new BABYLON.MeshBuilder.CreateSphere("scrap1", { diameter: 4}, this.scene),
-			BABYLON.PhysicsImpostor.SphereImpostor,
-			{ mass: 1 },
-			this.scene);
+		this.model = new BABYLON.MeshBuilder.CreateSphere("scrap1", { diameter: 4 }, this.scene);
 		mesh.parent = this.model
 		this.model.visibility = false;
 		

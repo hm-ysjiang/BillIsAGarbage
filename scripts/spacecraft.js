@@ -5,10 +5,7 @@ class Spacecraft extends SceneNode {
     }
 
     setup() {
-        this.model = initPhysics(new BABYLON.MeshBuilder.CreateBox("spacecraft", { width: 200, height: 200, depth: 200 }, this.scene),
-            BABYLON.PhysicsImpostor.BoxImpostor,
-            { mass: 10 },
-            this.scene);
+        this.model = new BABYLON.MeshBuilder.CreateBox("spacecraft", { width: 200, height: 200, depth: 200 }, this.scene);
         this.model.visibility = false;
         this.model.position = new BABYLON.Vector3(0, 0, 2500);
         this.model.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI);
@@ -25,9 +22,6 @@ class Spacecraft extends SceneNode {
                     mesh.parent = this.model
                 }
             });
-
-            makePhysicsObject(this.model, this.scene, 1);
-
         }).bind(this)
     }
 
