@@ -9,6 +9,8 @@ class Spacecraft extends SceneNode {
         this.model.position = new BABYLON.Vector3(2496.2, 0, 0)
         this.model.lookAt(BABYLON.Vector3.Zero());
         this.model.scaling = new BABYLON.Vector3(0.001, 0.001, 0.001)
+		this.prevCamLook = null;
+		this.prevForward = null;
 
         this.model.collibox = new BABYLON.MeshBuilder.CreateBox("spacecraft", { width: 200, height: 200, depth: 200 }, this.scene);
         this.model.collibox.visibility = false;
@@ -27,6 +29,15 @@ class Spacecraft extends SceneNode {
             });
 
         }).bind(this)
+		
+		this.scene.registerBeforeRender((()=>{
+			let curCamLook = this.camera.getFrontPosition(1);
+			if (this.preventGimbal(curCamLook)){
+				this.model.forward = this.prevForward;
+			}
+			this.prevCamLook = curCamLook;
+			this.prevForward = this.model.forward;
+		}).bind(this));
     }
 
     update() {
@@ -92,12 +103,6 @@ class Spacecraft extends SceneNode {
 		let sen = 0.1;
 		let rot = Math.PI / 300;
 
-        // if (Math.abs(dx) > canvas.width * 0.3 || Math.abs(dy) > canvas.height * 0.3) {
-        //     let theta = Math.atan(dy / dx);
-        //     console.log(dx, dy, theta);
-        //     this.spacecraft.model.rotate(new BABYLON.Vector3(dy, dx, 0).normalize(), Math.PI / 120, BABYLON.Space.LOCAL);
-        // }
-        // this.spacecraft.model.rotate(new BABYLON.Vector3(dy, -dx, 0).normalize(), Math.PI / 120, BABYLON.Space.LOCAL);
         if (Math.abs(dx) > canvas.width * sen) {
 			let speedAmp = (Math.abs(dx) - canvas.width * sen) / canvas.width;
 			let speedMx = 4;
@@ -116,10 +121,12 @@ class Spacecraft extends SceneNode {
             this.model.rotate(targetV, dy / Math.abs(dy) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
             this.hideground.rotate(targetV, dy / Math.abs(dy) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
         }
-        // if (this.camera.absoluteRotation.normalize().equals(new BABYLON.Vector3(0, 1, 0)) ||
-        //     this.camera.absoluteRotation.normalize().equals(new BABYLON.Vector3(0, -1, 0))) {
-        //     this.model.rotation = BABYLON.Vector3.Zero();
-        //     this.hideground.rotation = BABYLON.Vector3.Zero();
-        // }
     }
+	
+	preventGimbal(curCamLook){
+		if (Math.abs(curCamLook) > 0.95){
+			return true;
+		}
+		return false;
+	}
 }
