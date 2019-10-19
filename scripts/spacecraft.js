@@ -14,6 +14,8 @@ class Spacecraft {
             });
 
         }).bind(this)
+		
+		this.spacecraft.position = new BABYLON.Vector3(0, 0, 5000);
     }
 
     update() {
