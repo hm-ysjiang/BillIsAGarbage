@@ -15,11 +15,6 @@ class SceneMain {
         let scene = SceneMain.scene;
         let assetsMgr = SceneMain.assetsManager;
         let cam = SceneMain.camera;
-
-		let preloadMgr = new AssetsPreloadManager(assetsMgr);
-		preloadMgr.register('meshs', "", "mesh/", "mithra.stl", "scrap1");
-		preloadMgr.load();
-		SceneMain.tmp = preloadMgr;
 		
         let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
 
@@ -27,9 +22,7 @@ class SceneMain {
 		SceneMain.earth = new Earth(scene, assetsMgr);
         SceneMain.addNode(SceneMain.spacecraft);
         SceneMain.addNode(SceneMain.earth);
-		for (let i = 0 ; i<10 ; i++){
-			SceneMain.addNode(new Scrap1(scene, preloadMgr.createInstance("scrap1")));
-		}
+		Scrap1.setup(scene, assetsMgr);
 
         scene.registerAfterRender(()=>SceneMain.sceneNodes.forEach((s, i) => {
             s.update();
@@ -40,9 +33,12 @@ class SceneMain {
 
     static addNode(node) {
         node.setup();
-        SceneMain.sceneNodes.push(node);
-        return this
+        SceneMain.addSetupedNode(node);
     }
+	
+	static addSetupedNode(node){
+		SceneMain.sceneNodes.push(node);
+	}
 
     static hasFocus() {
         return scenePhase == 2;

@@ -42,7 +42,7 @@ function createScenes() {
 	/** Main Scene Start **/
 	SceneMain.scene = new BABYLON.Scene(engine);
 	initInputSystem(SceneMain.scene)
-	SceneMain.camera = new BABYLON.UniversalCamera("MainCam", new BABYLON.Vector3(0, 0, 5005), SceneMain.scene);
+	SceneMain.camera = new BABYLON.UniversalCamera("MainCam", new BABYLON.Vector3(0, 0, 2505), SceneMain.scene);
 	SceneMain.camera.setTarget(BABYLON.Vector3.Zero());
 	SceneMain.setup();
 	/** Main Scene End **/

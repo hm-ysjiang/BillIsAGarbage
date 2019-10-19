@@ -1,8 +1,25 @@
 class Scrap1 {
+	static scraps = []
+	static setup(scene, assetsMgr){
+		assetsMgr.addMeshTask('meshs', "", "mesh/", "mithra.stl").onSuccess = (function (task) {
+
+			task.loadedMeshes.forEach(mesh => {
+				// leave meshes already parented to maintain model hierarchy:
+				if (!mesh.parent) {
+					for (let i = 0 ; i<500 ; i++){
+						let tmp = new Scrap1(scene, mesh.createInstance());
+						Scrap1.scraps.push(tmp);
+						SceneMain.addSetupedNode(tmp);
+					}
+				}
+			});
+
+		}).bind(this);
+	}
+	
 	constructor(scene, mesh){
 		this.scene = scene;
         this.model = new BABYLON.TransformNode();
-		console.log(Date.now())
         mesh.parent = this.model
 		
 		this.radius = Math.random()*1400+600;
@@ -15,6 +32,7 @@ class Scrap1 {
 		this.selfAxis = new BABYLON.Vector3(Math.random(), Math.random(), Math.random()).normalize();
 		this.selfAngSpeed = (Math.random()-0.5)/10;
 		
+		this.model.scaling = new BABYLON.Vector3(5, 5, 5)
 	}
 	
 	update(){
