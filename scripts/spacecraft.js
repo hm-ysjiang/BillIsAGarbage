@@ -1,11 +1,18 @@
-class Spacecraft {
+class Spacecraft extends SceneNode {
     constructor(scene, assetsManager, camera) {
-        this.scene = scene;
-        this.camera = camera;
+        super(scene, assetsManager)
+        this.camera = camera
+    }
+
+    setup() {
         this.model = new BABYLON.TransformNode();
         this.hideground = new BABYLON.MeshBuilder.CreateGround("", { width: 0.1, height: 0.1 }, this.scene)
         this.hideground.parent = this.model;
-        assetsManager.addMeshTask('meshs', "", "mesh/", "aero4.obj").onSuccess = (function (task) {
+        this.model.position = new BABYLON.Vector3(0, 0, 5000);
+        this.model.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI);
+        this.model.scaling = new BABYLON.Vector3(0.001, 0.001, 0.001)
+
+        this.assetsManager.addMeshTask('meshs', "", "mesh/", "aero4.obj").onSuccess = (function (task) {
 
             task.loadedMeshes.forEach(mesh => {
                 // leave meshes already parented to maintain model hierarchy:
@@ -15,10 +22,6 @@ class Spacecraft {
             });
 
         }).bind(this)
-
-        this.model.position = new BABYLON.Vector3(0, 0, 5000);
-        this.model.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI);
-        this.model.scaling = new BABYLON.Vector3(0.001, 0.001, 0.001)
     }
 
     update() {
@@ -35,29 +38,32 @@ class Spacecraft {
     }
 
     translateByInput() {
-        // console.log("-====-")
-        // console.log(this.spacecraft.getWorldMatrix())
+        let vel = 1;
+        let pos = this.hideground.position
+        let norm = this.hideground.getNormalAtCoordinates(pos.x, pos.z);
+        let view = this.model.position.subtract(this.camera.position);
+        let rightV = BABYLON.Vector3.Cross(norm, view);
         if (this.scene.inputMap["w"]) {
             this.model.translate(
-                new BABYLON.Vector3(0, 0, -1)
+                view.multiplyByFloats(vel, vel, vel)
                 , 10
                 , BABYLON.Space.WORLD);
         }
         if (this.scene.inputMap["a"]) {
             this.model.translate(
-                new BABYLON.Vector3(1, 0, 0)
+                rightV.multiplyByFloats(-vel, -vel, -vel)
                 , 10
                 , BABYLON.Space.WORLD);
         }
         if (this.scene.inputMap["s"]) {
             this.model.translate(
-                new BABYLON.Vector3(0, 0, 1)
+                view.multiplyByFloats(-vel, -vel, -vel)
                 , 10
                 , BABYLON.Space.WORLD);
         }
         if (this.scene.inputMap["d"]) {
             this.model.translate(
-                new BABYLON.Vector3(-1, 0, 0)
+                rightV.multiplyByFloats(vel, vel, vel)
                 , 10
                 , BABYLON.Space.WORLD);
         }

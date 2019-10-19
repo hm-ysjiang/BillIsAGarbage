@@ -1,10 +1,8 @@
-class Earth{
-	constructor(scene, assetsManager, camera){
-		this.scene = scene;
-        this.camera = camera;
+class Earth extends SceneNode {
+    setup() {
         this.model = new BABYLON.TransformNode();
 
-        assetsManager.addMeshTask('meshs', "", "mesh/", "Earth_1_12756.glb").onSuccess = (function (task) {
+        this.assetsManager.addMeshTask('meshs', "", "mesh/", "Earth_1_12756.glb").onSuccess = (function (task) {
 
             task.loadedMeshes.forEach(mesh => {
                 // leave meshes already parented to maintain model hierarchy:
@@ -14,9 +12,9 @@ class Earth{
             });
 
         }).bind(this)
-	}
-	
-	update(){
-		this.model.rotate(new BABYLON.Vector3(0, 1, 0), -Math.PI/4320);
-	}
+    }
+
+    update() {
+        this.model.rotate(new BABYLON.Vector3(0, 1, 0), -Math.PI / 4320);
+    }
 }
