@@ -67,6 +67,18 @@ class Spacecraft extends SceneNode {
                 , 10
                 , BABYLON.Space.WORLD);
         }
+		if (Math.abs(this.model.position.x) > 3000){
+			this.model.position.x = this.model.position.x > 3000 ? 3000 : -3000;
+			console.log("Player reached the border");
+		}
+		if (Math.abs(this.model.position.y) > 3000){
+			this.model.position.y = this.model.position.y > 3000 ? 3000 : -3000;
+			console.log("Player reached the border");
+		}
+		if (Math.abs(this.model.position.z) > 3000){
+			this.model.position.z = this.model.position.z > 3000 ? 3000 : -3000;
+			console.log("Player reached the border");
+		}
     }
 
     rotateByMouse() {
@@ -82,18 +94,22 @@ class Spacecraft extends SceneNode {
         // }
         // this.spacecraft.model.rotate(new BABYLON.Vector3(dy, -dx, 0).normalize(), Math.PI / 120, BABYLON.Space.LOCAL);
         if (Math.abs(dx) > canvas.width * sen) {
+			let speedAmp = (Math.abs(dx) - canvas.width * sen) / canvas.width;
+			let speedMx = 4;
             let pos = this.hideground.position
             let norm = this.hideground.getNormalAtCoordinates(pos.x, pos.z);
-            this.model.rotate(norm, dx / Math.abs(dx) * rot, BABYLON.Space.WORLD);
-            this.hideground.rotate(norm, dx / Math.abs(dx) * rot, BABYLON.Space.WORLD);
+            this.model.rotate(norm, dx / Math.abs(dx) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
+            this.hideground.rotate(norm, dx / Math.abs(dx) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
         }
         if (Math.abs(dy) > canvas.height * sen) {
+			let speedAmp = (Math.abs(dy) - canvas.height * sen) / canvas.height;
+			let speedMx = 1.5;
             let pos = this.hideground.position
             let norm = this.hideground.getNormalAtCoordinates(pos.x, pos.z);
             let view = this.model.position.subtract(this.camera.position);
             let targetV = BABYLON.Vector3.Cross(norm, view);
-            this.model.rotate(targetV, dy / Math.abs(dy) * rot, BABYLON.Space.WORLD);
-            this.hideground.rotate(targetV, dy / Math.abs(dy) * rot, BABYLON.Space.WORLD);
+            this.model.rotate(targetV, dy / Math.abs(dy) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
+            this.hideground.rotate(targetV, dy / Math.abs(dy) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
         }
         // if (this.camera.absoluteRotation.normalize().equals(new BABYLON.Vector3(0, 1, 0)) ||
         //     this.camera.absoluteRotation.normalize().equals(new BABYLON.Vector3(0, -1, 0))) {

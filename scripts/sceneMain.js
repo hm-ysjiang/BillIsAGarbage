@@ -16,6 +16,8 @@ class SceneMain {
         let assetsMgr = SceneMain.assetsManager;
         let cam = SceneMain.camera;
 		
+		cam.noRotationConstraint = true;
+		
         let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
 
 		SceneMain.spacecraft = new Spacecraft(scene, assetsMgr, cam);
