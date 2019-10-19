@@ -23,7 +23,7 @@ class Scrap1 {
         mesh.parent = this.model
 		
 		this.model.collibox = new BABYLON.MeshBuilder.CreateSphere("scrap1", { diameter: 7 }, this.scene);
-		this.model.collibox.visibility = true;
+		this.model.collibox.visibility = false;
 		this.model.collibox.parent = this.model;
 
 		
