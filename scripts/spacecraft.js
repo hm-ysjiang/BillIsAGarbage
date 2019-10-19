@@ -2,7 +2,7 @@ class Spacecraft {
     constructor(scene, assetsManager, camera) {
         this.scene = scene;
         this.camera = camera;
-        this.spacecraft = new BABYLON.TransformNode();
+        this.model = new BABYLON.TransformNode();
 
         assetsManager.addMeshTask('meshs', "", "mesh/", "aero4.obj").onSuccess = (function (task) {
 
@@ -17,29 +17,29 @@ class Spacecraft {
     }
 
     update() {
-        if (this.spacecraft != null) {
+        if (this.model != null) {
             // console.log("-====-")
             // console.log(this.spacecraft.getWorldMatrix())
             if (this.scene.inputMap["w"]) {
-                this.spacecraft.translate(
+                this.model.translate(
                     new BABYLON.Vector3(0, 0, 1)
                     , 10
                     , BABYLON.Space.WORLD);
             }
             if (this.scene.inputMap["a"]) {
-                this.spacecraft.translate(
+                this.model.translate(
                     new BABYLON.Vector3(-1, 0, 0)
                     , 10
                     , BABYLON.Space.WORLD);
             }
             if (this.scene.inputMap["s"]) {
-                this.spacecraft.translate(
+                this.model.translate(
                     new BABYLON.Vector3(0, 0, -1)
                     , 10
                     , BABYLON.Space.WORLD);
             }
             if (this.scene.inputMap["d"]) {
-                this.spacecraft.translate(
+                this.model.translate(
                     new BABYLON.Vector3(1, 0, 0)
                     , 10
                     , BABYLON.Space.WORLD);
@@ -51,8 +51,8 @@ class Spacecraft {
             // )
             // this.camera.rotation = this.spacecraft.rotation.clone();
             // this.camera.rotation.y *= -1;
-            this.camera.position.copyFrom(this.spacecraft.position.subtract(this.spacecraft.forward.scale(150)).add(new BABYLON.Vector3(0, 1.6, 0)))
-            this.camera.setTarget(this.spacecraft.position)
+            // this.camera.position.copyFrom(this.model.position.subtract(this.model.forward.scale(150)).add(new BABYLON.Vector3(0, 1.6, 0)))
+            // this.camera.setTarget(this.model.position)
         }
     }
 }
