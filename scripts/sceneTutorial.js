@@ -37,9 +37,10 @@ class SceneTutorial{
 		});
 		
 		let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
-		let ground = BABYLON.MeshBuilder.CreatePlane("ground", {height: 100, width: 40, sourcePlane: 
-				(new BABYLON.Plane(0, 1, 0, 5)).normalize()});
+		let ground = BABYLON.MeshBuilder.CreatePlane("ground", {height: 15, width: 7, sourcePlane: 
+				(new BABYLON.Plane(0, 1, 0, 2)).normalize()});
 		ground.material = grayMaterial;
+		ground.position.z = -5
 		
 		let panelBtn = new BABYLON.GUI.PlanePanel();
 		panelBtn.margin = 0.1;
@@ -109,20 +110,19 @@ class SceneTutorial{
         if (scene.inputMap["d"]) {
 			cam.position.addInPlace(rightV.scale(vel, vel, vel));
         }
-		/*
-		if (Math.abs(this.model.position.x) > 3000){
-			this.model.position.x = this.model.position.x > 3000 ? 3000 : -3000;
+		
+		if (Math.abs(cam.position.x) > 7.5){
+			cam.position.x = cam.position.x > 7.5 ? 7.5 : -7.5;
 			console.log("Player reached the border");
 		}
-		if (Math.abs(this.model.position.y) > 3000){
-			this.model.position.y = this.model.position.y > 3000 ? 3000 : -3000;
+		if (cam.position.z > -1.5){
+			cam.position.z = -1.5;
 			console.log("Player reached the border");
 		}
-		if (Math.abs(this.model.position.z) > 3000){
-			this.model.position.z = this.model.position.z > 3000 ? 3000 : -3000;
+		else if (cam.position.z < -8.5){
+			cam.position.z = -8.5;
 			console.log("Player reached the border");
 		}
-		*/
     }
 
     static rotateByMouse(scene, cam) {
