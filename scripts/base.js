@@ -46,6 +46,8 @@ function createScenes() {
 	SceneMain.camera.setTarget(BABYLON.Vector3.Zero());
 	SceneMain.setup();
 	/** Main Scene End **/
+	
+	setupSkybox();
 }
 
 function initInputSystem(scene) {
@@ -57,6 +59,12 @@ function initInputSystem(scene) {
 	scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {
 		scene.inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
 	}));
+}
+	
+function setupSkybox(){
+	SceneMain.setupSkybox();
+	SceneTutorial.setupSkybox();
+	SceneMenu.setupSkybox();
 }
 
 /***************************

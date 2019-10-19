@@ -41,6 +41,13 @@ class SceneMenu {
 		txt2.color = "white";
 		
 		
+		let btnMaterial = new BABYLON.StandardMaterial("btnMaterial", scene);
+		btnMaterial.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+		btnMaterial.specularColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+		btnMaterial.emissiveColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+		btnMaterial.ambientColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+		btnMaterial.alpha = 0.5;
+
 		let panelBtn = new BABYLON.GUI.PlanePanel();
 		panelBtn.margin = 0.2;
 		manager.addControl(panelBtn);
@@ -49,6 +56,7 @@ class SceneMenu {
 		let btnPlay = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(btnPlay);
 		btnPlay.text = "Play";
+		btnPlay.material = btnMaterial;
 		btnPlay.onPointerDownObservable.add(()=>{
 			if (SceneMenu.hasFocus()){
 				scenePhase = 2;
@@ -60,6 +68,7 @@ class SceneMenu {
 		let btnTutorial = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(btnTutorial);
 		btnTutorial.text = "Tutorial";
+		btnTutorial.material = btnMaterial;
 		btnTutorial.onPointerDownObservable.add(()=>{
 			if (SceneMenu.hasFocus()){
 				scenePhase = 1;
@@ -73,6 +82,18 @@ class SceneMenu {
 	
 	static hasFocus(){
 		return scenePhase != 1 && scenePhase != 2;
+	}
+	
+	static setupSkybox(){
+		let scene = SceneMenu.scene;
+		let skybox = BABYLON.Mesh.CreateBox("skyBox", 7000.0, scene);
+		let skyMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+		skyMaterial.backFaceCulling = false;
+		skyMaterial.disableLighting = true;
+		skyMaterial.reflectionTexture = new BABYLON.CubeTexture("media/textures/skybox/box", scene);;
+		skyMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+		skybox.infiniteDistance = true;
+		skybox.material = skyMaterial;
 	}
 }
 
