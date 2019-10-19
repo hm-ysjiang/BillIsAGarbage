@@ -26,7 +26,7 @@ class Scrap1 {
 		mesh.parent = this.model
 		this.model.visibility = false;
 		
-		this.radius = Math.random()*1400+600;
+		this.radius = Math.random()*900+600;
 		this.model.position = new BABYLON.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize();
 		do {
 			this.axis = new BABYLON.Vector3(Math.random(), Math.random(), Math.random()).normalize();

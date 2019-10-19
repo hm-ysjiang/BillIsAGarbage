@@ -18,7 +18,9 @@ class SceneMain {
         // scene.collisionsEnabled = true;
         scene.enablePhysics(new BABYLON.Vector3(0, 0, 0), new BABYLON.OimoJSPlugin());
         
-
+		cam.noRotationConstraint = true;
+		cam.inputs.clear();
+		
         let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
 
         SceneMain.spacecraft = new Spacecraft(scene, assetsMgr, cam);
@@ -48,5 +50,17 @@ class SceneMain {
     static hasFocus() {
         return scenePhase == 2;
     }
+	
+	static setupSkybox(){
+		let scene = SceneMain.scene;
+		let skybox = BABYLON.Mesh.CreateBox("skyBox", 7000.0, scene);
+		let skyMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+		skyMaterial.backFaceCulling = false;
+		skyMaterial.disableLighting = true;
+		skyMaterial.reflectionTexture = new BABYLON.CubeTexture("media/textures/skybox/box", scene);;
+		skyMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+		skybox.infiniteDistance = true;
+		skybox.material = skyMaterial;
+	}
 }
 

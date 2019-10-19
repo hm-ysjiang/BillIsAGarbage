@@ -28,4 +28,16 @@ class SceneTutorial{
 	static hasFocus(){
 		return scenePhase == 1;
 	}
+	
+	static setupSkybox(){
+		let scene = SceneTutorial.scene;
+		let skybox = BABYLON.Mesh.CreateBox("skyBox", 7000.0, scene);
+		let skyMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+		skyMaterial.backFaceCulling = false;
+		skyMaterial.disableLighting = true;
+		skyMaterial.reflectionTexture = new BABYLON.CubeTexture("media/textures/skybox/box", scene);
+		skyMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+		skybox.infiniteDistance = true;
+		skybox.material = skyMaterial;
+	}
 }
