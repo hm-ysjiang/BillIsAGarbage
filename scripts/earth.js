@@ -1,16 +1,17 @@
 class Earth extends SceneNode {
     setup() {
-        this.model = new BABYLON.TransformNode();
-
+        this.model = initPhysics(new BABYLON.MeshBuilder.CreateSphere("earth", { diameter: 1000 }, this.scene),
+            BABYLON.PhysicsImpostor.SphereImpostor,
+            { mass: 1000 },
+            this.scene);
+        this.model.visibility = false;
         this.assetsManager.addMeshTask('meshs', "", "mesh/", "Earth_1_12756.glb").onSuccess = (function (task) {
-
             task.loadedMeshes.forEach(mesh => {
-                // leave meshes already parented to maintain model hierarchy:
+                console.log(mesh.parent)
                 if (!mesh.parent) {
                     mesh.parent = this.model
                 }
             });
-
         }).bind(this)
     }
 
