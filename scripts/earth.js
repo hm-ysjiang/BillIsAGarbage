@@ -15,4 +15,8 @@ class Earth{
 
         }).bind(this)
 	}
+	
+	update(){
+		this.model.rotate(new BABYLON.Vector3(0, 1, 0), -Math.PI/4320);
+	}
 }

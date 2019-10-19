@@ -17,6 +17,7 @@ class Spacecraft {
 		
 		this.spacecraft.position = new BABYLON.Vector3(0, 0, 5000);
 		this.spacecraft.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI);
+		this.spacecraft.scaling = new BABYLON.Vector3(0.001, 0.001, 0.001)
     }
 
     update() {
@@ -53,7 +54,7 @@ class Spacecraft {
     }
 	
 	fitCam(){
-		this.camera.position.copyFrom(this.spacecraft.position.subtract(this.spacecraft.forward.scale(350)).add(new BABYLON.Vector3(0, 100, 0)))
+		this.camera.position.copyFrom(this.spacecraft.position.subtract(this.spacecraft.forward.scale(1.2)).add(new BABYLON.Vector3(0, 0.1, 0)))
 		this.camera.setTarget(this.spacecraft.position)
 	}
 }

@@ -19,6 +19,7 @@ class SceneMain {
         SceneMain.spacecraft = new Spacecraft(scene, assetsMgr, cam);
         scene.registerAfterRender(SceneMain.spacecraft.update.bind(SceneMain.spacecraft));
 		SceneMain.earth = new Earth(scene, assetsMgr, cam);
+        scene.registerAfterRender(SceneMain.earth.update.bind(SceneMain.earth));
         assetsMgr.load();
     }
 
