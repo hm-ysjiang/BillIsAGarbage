@@ -19,9 +19,8 @@ class Scrap1 {
 	
 	constructor(scene, mesh){
 		this.scene = scene;
-		this.model = new BABYLON.MeshBuilder.CreateSphere("scrap1", { diameter: 4 }, this.scene);
-		mesh.parent = this.model
-		this.model.visibility = false;
+        this.model = new BABYLON.TransformNode();
+        mesh.parent = this.model
 		
 		this.radius = Math.random()*900+600;
 		this.model.position = new BABYLON.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize();

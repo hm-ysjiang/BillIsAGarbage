@@ -5,23 +5,22 @@ class Spacecraft extends SceneNode {
     }
 
     setup() {
-        this.model = new BABYLON.MeshBuilder.CreateBox("spacecraft", { width: 200, height: 200, depth: 200 }, this.scene);
-        this.model.visibility = false;
+        this.model = new BABYLON.TransformNode();
+        this.hideground = new BABYLON.MeshBuilder.CreateGround("", { width: 0.1, height: 0.1 }, this.scene)
+        this.hideground.parent = this.model;
         this.model.position = new BABYLON.Vector3(0, 0, 2500);
         this.model.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI);
         this.model.scaling = new BABYLON.Vector3(0.001, 0.001, 0.001)
-        this.hideground = new BABYLON.MeshBuilder.CreateGround("", { width: 0.1, height: 0.1 }, this.scene)
-        this.hideground.parent = this.model;
 
         this.assetsManager.addMeshTask('meshs', "", "mesh/", "aero4.obj").onSuccess = (function (task) {
 
             task.loadedMeshes.forEach(mesh => {
-                mesh.checkCollisions = withPhysics;
                 // leave meshes already parented to maintain model hierarchy:
                 if (!mesh.parent) {
                     mesh.parent = this.model
                 }
             });
+
         }).bind(this)
     }
 
@@ -68,9 +67,6 @@ class Spacecraft extends SceneNode {
                 , 10
                 , BABYLON.Space.WORLD);
         }
-        if (this.scene.inputMap["r"]) {
-            this.model.lookAt(BABYLON.Vector3.Zero())
-        }
 		if (Math.abs(this.model.position.x) > 3000){
 			this.model.position.x = this.model.position.x > 3000 ? 3000 : -3000;
 			console.log("Player reached the border");
@@ -88,8 +84,8 @@ class Spacecraft extends SceneNode {
     rotateByMouse() {
         let dx = SceneMain.scene.pointerX - canvas.width / 2;
         let dy = (SceneMain.scene.pointerY - canvas.height / 2);
-        let sen = 0.1;
-        let rot = Math.PI / 300;
+		let sen = 0.1;
+		let rot = Math.PI / 300;
 
         // if (Math.abs(dx) > canvas.width * 0.3 || Math.abs(dy) > canvas.height * 0.3) {
         //     let theta = Math.atan(dy / dx);
