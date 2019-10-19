@@ -24,7 +24,7 @@ class Spacecraft extends SceneNode {
         this.model.collector.visibility = true;
         this.model.collector.parent = this.model;
         this.model.collector.position.y += 62
-        
+
         this.assetsManager.addMeshTask('meshs', "", "mesh/", "aero4.obj").onSuccess = (function (task) {
 
             task.loadedMeshes.forEach(mesh => {
@@ -47,19 +47,17 @@ class Spacecraft extends SceneNode {
                 }
             });
 		}).bind(this)
-		
-		this.scene.registerBeforeRender((()=>{
-			let curCamLook = this.camera.getFrontPosition(1);
-			if (this.preventGimbal(curCamLook)){
-				this.model.forward = this.prevForward;
-			}
-			this.prevCamLook = curCamLook;
-			this.prevForward = this.model.forward;
-		}).bind(this));
     }
 
     update() {
         if (this.model != null) {
+            let curCamLook = this.camera.getFrontPosition(1);
+            if (this.preventGimbal(curCamLook)) {
+                this.model.forward = this.prevForward;
+            }
+            this.prevCamLook = curCamLook;
+            this.prevForward = this.model.forward;
+
             this.translateByInput();
             this.rotateByMouse();
             this.fitCam();
