@@ -47,7 +47,7 @@ class SceneTutorial{
 		manager.addControl(panelBtn);
 		
 		SceneTutorial.spacecraft = new Spacecraft(scene, new BABYLON.AssetsManager(scene), cam);
-		SceneTutorial.spacecraft.setup(false);
+		SceneTutorial.spacecraft.setup();
 		SceneTutorial.spacecraft.assetsManager.load()
 		SceneTutorial.spacecraft.model.position = new BABYLON.Vector3(1, 12, 30)
 		SceneTutorial.spacecraft.model.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI / 6);
