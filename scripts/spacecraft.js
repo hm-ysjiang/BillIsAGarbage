@@ -16,7 +16,7 @@ class Spacecraft extends SceneNode {
         this.assetsManager.addMeshTask('meshs', "", "mesh/", "aero4.obj").onSuccess = (function (task) {
 
             task.loadedMeshes.forEach(mesh => {
-                mesh.checkCollisions = true;
+                mesh.checkCollisions = withPhysics;
                 // leave meshes already parented to maintain model hierarchy:
                 if (!mesh.parent) {
                     mesh.parent = this.model

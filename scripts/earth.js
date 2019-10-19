@@ -9,6 +9,7 @@ class Earth extends SceneNode {
                 }
             });
         }).bind(this)
+		this.model.rotate(new BABYLON.Vector3(0, 0, 1), 23.5 * Math.PI / 180);
     }
 
     update() {

@@ -56,7 +56,7 @@ class SceneMenu {
 		let btnPlay = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(btnPlay);
 		btnPlay.text = "Play";
-		btnPlay.material = btnMaterial;
+		btnPlay.mesh.material = btnMaterial;
 		btnPlay.onPointerDownObservable.add(()=>{
 			if (SceneMenu.hasFocus()){
 				scenePhase = 2;
@@ -68,7 +68,7 @@ class SceneMenu {
 		let btnTutorial = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(btnTutorial);
 		btnTutorial.text = "Tutorial";
-		btnTutorial.material = btnMaterial;
+		btnTutorial.mesh.material = btnMaterial;
 		btnTutorial.onPointerDownObservable.add(()=>{
 			if (SceneMenu.hasFocus()){
 				scenePhase = 1;
