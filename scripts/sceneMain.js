@@ -16,6 +16,8 @@ class SceneMain {
         let assetsMgr = SceneMain.assetsManager;
         let cam = SceneMain.camera;
 		
+		SceneMain.setupSkyBox();
+		
 		cam.noRotationConstraint = true;
 		
         let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
@@ -47,5 +49,17 @@ class SceneMain {
     static hasFocus() {
         return scenePhase == 2;
     }
+	
+	static setupSkyBox(){
+		let scene = SceneMain.scene;
+		let skybox = BABYLON.Mesh.CreateBox("skyBox", 7000.0, scene);
+		let skyMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+		skyMaterial.backFaceCulling = false;
+		skyMaterial.disableLighting = true;
+		skybox.infiniteDistance = true;
+		skybox.material = skyMaterial;
+		skyMaterial.reflectionTexture = new BABYLON.CubeTexture("media/textures/skybox/box", scene);
+		skyMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+	}
 }
 
