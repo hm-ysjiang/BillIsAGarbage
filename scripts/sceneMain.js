@@ -22,6 +22,8 @@ class SceneMain {
 		SceneMain.earth = new Earth(scene, assetsMgr);
         SceneMain.addNode(SceneMain.spacecraft);
         SceneMain.addNode(SceneMain.earth);
+        SceneMain.addNode(new UiMain(scene, cam));
+		
 		Scrap1.setup(scene, assetsMgr);
 
         scene.registerAfterRender(()=>SceneMain.sceneNodes.forEach((s, i) => {
