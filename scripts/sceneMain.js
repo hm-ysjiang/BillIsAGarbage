@@ -5,7 +5,7 @@ class SceneMain{
     static camera = null;
     
     static setup() {
-
+		
     }
 	
 	static hasFocus(){
