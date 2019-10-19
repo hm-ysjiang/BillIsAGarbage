@@ -11,6 +11,7 @@ var engine = new BABYLON.Engine(canvas, true);
  * 							  2: The Game}
  */
 var scenePhase = 0;
+const gravity = 0.98;
 /***************************
  *	Variables Section End  *
  ***************************/
