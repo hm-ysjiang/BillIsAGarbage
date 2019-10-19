@@ -5,28 +5,22 @@ class SceneMain {
     static camera = null;
     static assetsManager = null;
     static spacecraft = null;
+	static earth = null;
+	
     static setup() {
         SceneMain.assetsManager = new BABYLON.AssetsManager(SceneMain.scene);
-        // SceneMain.assetsManage.addMeshTask('meshs', "", "mesh/", "ISS_stationary.glb").onSuccess
-        //     = function (task) {
-        //         SceneMain.home = task.loadedMeshes[0];
-        //     }
-        SceneMain.spacecraft = new Spacecraft(SceneMain.scene, SceneMain.assetsManager, SceneMain.camera);
-        SceneMain.scene.registerAfterRender(SceneMain.spacecraft.update.bind(SceneMain.spacecraft));
-        SceneMain.assetsManager.load();
+		
+		let scene = SceneMain.scene;
+		let assetsMgr = SceneMain.assetsManager;
+		let cam = SceneMain.camera
         
-        SceneMain.scene.registerAfterRender((() => {
-            let dx = SceneMain.scene.pointerX - canvas.width / 2;
-            let dy = (SceneMain.scene.pointerY - canvas.height / 2);
-
-            if (Math.abs(dx) > canvas.width * 0.3 || Math.abs(dy) > canvas.height * 0.3) {
-                let theta = Math.atan(dy / dx);
-                console.log(dx, dy, theta);
-                this.spacecraft.model.rotate(new BABYLON.Vector3(dy, -dx, 0).normalize(), Math.PI / 120, BABYLON.Space.LOCAL);
-            }
-            // this.spacecraft.model.rotate(new BABYLON.Vector3(dy, -dx, 0).normalize(), Math.PI / 120, BABYLON.Space.LOCAL);
-
-        }).bind(this));
+		let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
+		
+        SceneMain.spacecraft = new Spacecraft(scene, assetsMgr, cam);
+        scene.registerAfterRender(SceneMain.spacecraft.update.bind(SceneMain.spacecraft));
+		SceneMain.earth = new Earth(scene, assetsMgr, cam);
+        scene.registerAfterRender(SceneMain.earth.update.bind(SceneMain.earth));
+        assetsMgr.load();
     }
 
     static hasFocus() {
