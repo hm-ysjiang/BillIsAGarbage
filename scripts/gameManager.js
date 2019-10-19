@@ -23,9 +23,10 @@ class GameManager {
         if (this.total_delta > 3000) {
             this.total_delta -= 3000;
             this.fuel -= 1;
-            if (this.fuel < 0) {
-                this.onDamage();
-            }
+            
+        }
+        if (this.fuel < 0 || this.hp < 0) {
+            this.onDamage();
         }
         this.updateUi()
     }
@@ -35,6 +36,10 @@ class GameManager {
         scrap.model.dispose()
         this.money += 10;
         this.score += 10;
+    }
+
+    onHit() {
+        this.hp -= 1;
     }
 
     onDamage() {

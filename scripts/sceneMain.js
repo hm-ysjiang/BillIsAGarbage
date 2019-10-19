@@ -46,8 +46,11 @@ class SceneMain {
     static hookEvents() {
         SceneMain.scene.registerAfterRender(() => {
             Scrap1.scraps.forEach((v) => {
-                if (SceneMain.spacecraft.model.collibox.intersectsMesh(v.model.collibox)) {
+                if (SceneMain.spacecraft.model.collector.intersectsMesh(v.model.collibox)) {
                     SceneMain.gameManager.onCollect(v);
+                }
+                if (SceneMain.spacecraft.model.collibox.intersectsMesh(v.model.collibox)) {
+                    SceneMain.gameManager.onHit(v);
                 }
             }
             )
@@ -66,25 +69,25 @@ class SceneMain {
         node.setup();
         SceneMain.addSetupedNode(node);
     }
-	
-	static addSetupedNode(node){
-		SceneMain.sceneNodes.push(node);
-	}
+
+    static addSetupedNode(node) {
+        SceneMain.sceneNodes.push(node);
+    }
 
     static hasFocus() {
         return scenePhase == 2;
     }
-	
-	static setupSkybox(){
-		let scene = SceneMain.scene;
-		let skybox = BABYLON.Mesh.CreateBox("skyBox", 7000.0, scene);
-		let skyMaterial = new BABYLON.StandardMaterial("skyBox", scene);
-		skyMaterial.backFaceCulling = false;
-		skyMaterial.disableLighting = true;
-		skyMaterial.reflectionTexture = new BABYLON.CubeTexture("media/textures/skybox/box", scene);;
-		skyMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-		skybox.infiniteDistance = true;
-		skybox.material = skyMaterial;
-	}
+
+    static setupSkybox() {
+        let scene = SceneMain.scene;
+        let skybox = BABYLON.Mesh.CreateBox("skyBox", 7000.0, scene);
+        let skyMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+        skyMaterial.backFaceCulling = false;
+        skyMaterial.disableLighting = true;
+        skyMaterial.reflectionTexture = new BABYLON.CubeTexture("media/textures/skybox/box", scene);;
+        skyMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+        skybox.infiniteDistance = true;
+        skybox.material = skyMaterial;
+    }
 }
 

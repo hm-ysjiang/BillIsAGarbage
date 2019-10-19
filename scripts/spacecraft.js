@@ -20,6 +20,11 @@ class Spacecraft extends SceneNode {
         this.hideground = new BABYLON.MeshBuilder.CreateGround("", { width: 0.1, height: 0.1 }, this.scene)
         this.hideground.parent = this.model;
 
+        this.model.collector = new BABYLON.MeshBuilder.CreateBox("box", {}, this.scene);
+        this.model.collector.visibility = true;
+        this.model.collector.parent = this.model;
+        this.model.collector.position.y += 62
+        
         this.assetsManager.addMeshTask('meshs', "", "mesh/", "aero4.obj").onSuccess = (function (task) {
 
             task.loadedMeshes.forEach(mesh => {
