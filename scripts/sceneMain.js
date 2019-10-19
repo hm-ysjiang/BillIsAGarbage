@@ -7,14 +7,20 @@ class SceneMain {
     static spacecraft = null;
     static earth = null;
     static sceneNodes = []
+	static tmp;
 
     static setup() {
         SceneMain.assetsManager = new BABYLON.AssetsManager(SceneMain.scene);
 
         let scene = SceneMain.scene;
         let assetsMgr = SceneMain.assetsManager;
-        let cam = SceneMain.camera
+        let cam = SceneMain.camera;
 
+		let preloadMgr = new AssetsPreloadManager(assetsMgr);
+		preloadMgr.register('meshs', "", "mesh/", "mithra.stl", "scrap1");
+		preloadMgr.load();
+		SceneMain.tmp = preloadMgr;
+		
         let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 1, 0), scene);
 
         SceneMain.addNode(new Spacecraft(scene, assetsMgr, cam));
@@ -22,9 +28,9 @@ class SceneMain {
         SceneMain.addNode(new UiMain(scene, cam));
 
         scene.registerAfterRender(()=>SceneMain.sceneNodes.forEach((s, i) => {
-            console.log('qq')
             s.update();
         }))
+		
         assetsMgr.load();
     }
 
