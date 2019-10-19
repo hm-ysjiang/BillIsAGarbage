@@ -19,6 +19,7 @@ class SceneMain {
 
         SceneMain.addNode(new Spacecraft(scene, assetsMgr, cam));
         SceneMain.addNode(new Earth(scene, assetsMgr));
+        SceneMain.addNode(new UiMain(scene, cam));
 
         scene.registerAfterRender(()=>SceneMain.sceneNodes.forEach((s, i) => {
             console.log('qq')
