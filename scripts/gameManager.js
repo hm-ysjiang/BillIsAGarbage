@@ -32,4 +32,22 @@ class GameManager {
 
     }
 
+
+    onHome() {
+        if (this.money > (100 - this.fuel)) {
+            this.money -= (100 - this.fuel);
+            this.fuel = 100;
+        } else {
+            this.fuel += this.money;
+            this.money = 0;
+        }
+        if (this.money > (100 - this.hp)) {
+            this.money -= (100 - this.hp);
+            this.hp = 100;
+        } else {
+            this.hp += this.money;
+            this.money = 0;
+        }
+        this.updateUi()
+    }
 }

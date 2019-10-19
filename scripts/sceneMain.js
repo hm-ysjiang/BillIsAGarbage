@@ -26,8 +26,10 @@ class SceneMain {
         SceneMain.earth = new Earth(scene, assetsMgr);
         SceneMain.uiMain = new UiMain(scene, cam);
         SceneMain.gameManager = new GameManager(SceneMain.uiMain)
+        SceneMain.station = new Station(scene, assetsMgr);
         SceneMain.addNode(SceneMain.spacecraft);
         SceneMain.addNode(SceneMain.earth);
+        SceneMain.addNode(SceneMain.station);
         SceneMain.addNode(SceneMain.uiMain);
         SceneMain.addSetupedNode(SceneMain.gameManager);
 
@@ -51,6 +53,10 @@ class SceneMain {
             )
             if (SceneMain.spacecraft.model.collibox.intersectsMesh(SceneMain.earth.model.collibox)) {
                 SceneMain.gameManager.onDamage();
+            }
+            if (SceneMain.spacecraft.model.collibox.intersectsMesh(SceneMain.station.model.collibox)) {
+                console.log("home")
+                SceneMain.gameManager.onHome();
             }
         }
         );

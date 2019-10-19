@@ -6,8 +6,8 @@ class Spacecraft extends SceneNode {
 
     setup() {
         this.model = new BABYLON.TransformNode();
-        this.model.position = new BABYLON.Vector3(0, 0, 2500);
-        this.model.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI);
+        this.model.position = new BABYLON.Vector3(2496.2, 0, 0)
+        this.model.lookAt(BABYLON.Vector3.Zero());
         this.model.scaling = new BABYLON.Vector3(0.001, 0.001, 0.001)
 
         this.model.collibox = new BABYLON.MeshBuilder.CreateBox("spacecraft", { width: 200, height: 200, depth: 200 }, this.scene);
