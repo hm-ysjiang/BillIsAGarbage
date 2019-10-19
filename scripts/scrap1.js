@@ -22,6 +22,11 @@ class Scrap1 {
         this.model = new BABYLON.TransformNode();
         mesh.parent = this.model
 		
+		this.model.collibox = new BABYLON.MeshBuilder.CreateSphere("scrap1", { diameter: 7 }, this.scene);
+		this.model.collibox.visibility = false;
+		this.model.collibox.parent = this.model;
+
+		
 		this.radius = Math.random()*900+600;
 		this.model.position = new BABYLON.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize();
 		do {
