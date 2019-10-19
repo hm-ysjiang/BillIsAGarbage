@@ -2,11 +2,15 @@ class SceneMenu {
 	static scene = null;
 	static camera = null;
 	static manager = null;
-	static anchor = null;
 
 	static setup(){
-		SceneMenu.camera.inputs.clear();
 		SceneMenu.manager = new BABYLON.GUI.GUI3DManager(SceneMenu.scene);
+		
+		let scene = SceneMenu.scene;
+		let cam = SceneMenu.camera;
+		let manager = SceneMenu.manager;
+		
+		cam.inputs.clear();
 		
 		let adv = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("TextUI");
 		let panelTxt1 = new BABYLON.GUI.Rectangle();
@@ -39,7 +43,7 @@ class SceneMenu {
 		
 		let panelBtn = new BABYLON.GUI.PlanePanel();
 		panelBtn.margin = 0.2;
-		SceneMenu.manager.addControl(panelBtn);
+		manager.addControl(panelBtn);
 		panelBtn.position.y = -0.5;
 		panelBtn.position.z = -2;
 		let btnPlay = new BABYLON.GUI.HolographicButton("orientation");
@@ -48,7 +52,7 @@ class SceneMenu {
 		btnPlay.onPointerDownObservable.add(()=>{
 			if (SceneMenu.hasFocus()){
 				scenePhase = 2;
-				SceneMenu.camera.detachControl();
+				cam.detachControl();
 				SceneMain.camera.attachControl(canvas, true);
 				console.log("Switch to Game Scene");
 			}
@@ -59,7 +63,7 @@ class SceneMenu {
 		btnTutorial.onPointerDownObservable.add(()=>{
 			if (SceneMenu.hasFocus()){
 				scenePhase = 1;
-				SceneMenu.camera.detachControl();
+				cam.detachControl();
 				SceneTutorial.camera.attachControl(canvas, true);
 				console.log("Switch to Tutorial Scene");
 			}
