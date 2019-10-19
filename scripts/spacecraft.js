@@ -106,20 +106,25 @@ class Spacecraft extends SceneNode {
         if (Math.abs(dx) > canvas.width * sen) {
 			let speedAmp = (Math.abs(dx) - canvas.width * sen) / canvas.width;
 			let speedMx = 4;
+			let forw = this.model.forward.clone().normalize();
+			let speedDebuf = (Math.PI - Math.abs(Math.acos(BABYLON.Vector3.Dot(forw, BABYLON.Axis.Y)))) / Math.PI;
             let pos = this.hideground.position
             let norm = this.hideground.getNormalAtCoordinates(pos.x, pos.z);
-            this.model.rotate(norm, dx / Math.abs(dx) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
+            this.model.rotate(norm, dx / Math.abs(dx) * rot * speedMx * speedAmp * speedDebuf, BABYLON.Space.WORLD);
             this.hideground.rotate(norm, dx / Math.abs(dx) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
         }
         if (Math.abs(dy) > canvas.height * sen) {
-			let speedAmp = (Math.abs(dy) - canvas.height * sen) / canvas.height;
-			let speedMx = 1.5;
-            let pos = this.hideground.position
-            let norm = this.hideground.getNormalAtCoordinates(pos.x, pos.z);
-            let view = this.model.position.subtract(this.camera.position);
-            let targetV = BABYLON.Vector3.Cross(norm, view);
-            this.model.rotate(targetV, dy / Math.abs(dy) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
-            this.hideground.rotate(targetV, dy / Math.abs(dy) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
+			let cs = BABYLON.Vector3.Dot(this.model.forward.clone().normalize(), BABYLON.Axis.Y)
+			if (Math.abs(cs) <= 0.99 || ((cs > 0.99) ^ (dy < 0))){
+				let speedAmp = (Math.abs(dy) - canvas.height * sen) / canvas.height;
+				let speedMx = 1.5;
+				let pos = this.hideground.position
+				let norm = this.hideground.getNormalAtCoordinates(pos.x, pos.z);
+				let view = this.model.position.subtract(this.camera.position);
+				let targetV = BABYLON.Vector3.Cross(norm, view);
+				this.model.rotate(targetV, dy / Math.abs(dy) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);
+				this.hideground.rotate(targetV, dy / Math.abs(dy) * rot * speedMx * speedAmp, BABYLON.Space.WORLD);	
+			}
         }
     }
 	
