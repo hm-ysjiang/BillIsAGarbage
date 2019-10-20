@@ -20,11 +20,6 @@ class Spacecraft extends SceneNode {
         this.hideground = new BABYLON.MeshBuilder.CreateGround("", { width: 0.1, height: 0.1 }, this.scene)
         this.hideground.parent = this.model;
 
-        this.model.collector = new BABYLON.MeshBuilder.CreateBox("box", {}, this.scene);
-        this.model.collector.visibility = true;
-        this.model.collector.parent = this.model;
-        this.model.collector.position.y += 62
-
         this.assetsManager.addMeshTask('meshs', "", "mesh/", "aero4.obj").onSuccess = (function (task) {
 
             task.loadedMeshes.forEach(mesh => {
@@ -35,22 +30,11 @@ class Spacecraft extends SceneNode {
             });
 
         }).bind(this)
-		this.assetsManager.addMeshTask('meshs', "", "mesh/", "jellyfish_net_spongebob.gltf").onSuccess = (task=>{
-			task.loadedMeshes.forEach(mesh => {
-                // leave meshes already parented to maintain model hierarchy:
-                if (!mesh.parent) {
-					mesh.position = this.model.position.clone()
-					mesh.position.y += 62
-					mesh.scaling = new BABYLON.Vector3(0.3, 0.3, 0.3)
-					mesh.rotate(BABYLON.Axis.Y, Math.PI)
-                    mesh.parent = this.model
-                }
-            });
-		}).bind(this)
     }
 
     update() {
         if (this.model != null) {
+			console.log(this.scene.inputMap)
             let curCamLook = this.camera.getFrontPosition(1);
             if (this.preventGimbal(curCamLook)) {
                 this.model.forward = this.prevForward;
@@ -70,35 +54,49 @@ class Spacecraft extends SceneNode {
     }
 
     translateByInput() {
-        let vel = 1;
+        let vel = 2;
         let pos = this.hideground.position
         let norm = this.hideground.getNormalAtCoordinates(pos.x, pos.z);
-        let view = this.model.position.subtract(this.camera.position);
-        let rightV = BABYLON.Vector3.Cross(norm, view);
-        if (this.scene.inputMap["w"]) {
-            this.model.translate(
-                view.multiplyByFloats(vel, vel, vel)
-                , 10
+        let view = this.model.position.subtract(this.camera.position).normalize();
+        let rightV = BABYLON.Vector3.Cross(norm, view).normalize();
+		let fuel = 0;
+		if (this.scene.inputMap[" "]){
+			this.model.translate(
+                view
+                , vel*5
                 , BABYLON.Space.WORLD);
+			fuel = 6;
+		}
+        else if (this.scene.inputMap["w"]) {
+            this.model.translate(
+                view
+                , vel
+                , BABYLON.Space.WORLD);
+			fuel = 1;
         }
         if (this.scene.inputMap["a"]) {
             this.model.translate(
-                rightV.multiplyByFloats(-vel, -vel, -vel)
-                , 10
+                rightV
+                , -vel
                 , BABYLON.Space.WORLD);
+			fuel = 1;
         }
         if (this.scene.inputMap["s"]) {
             this.model.translate(
-                view.multiplyByFloats(-vel, -vel, -vel)
-                , 10
+                view
+                , -vel
                 , BABYLON.Space.WORLD);
+			fuel = 1;
         }
         if (this.scene.inputMap["d"]) {
             this.model.translate(
-                rightV.multiplyByFloats(vel, vel, vel)
-                , 10
+                rightV
+                , vel
                 , BABYLON.Space.WORLD);
+			fuel = 1;
         }
+		if (fuel)
+			SceneMain.gameManager.useFuel(fuel);
 		if (Math.abs(this.model.position.x) > 3000){
 			this.model.position.x = this.model.position.x > 3000 ? 3000 : -3000;
 			console.log("Player reached the border");

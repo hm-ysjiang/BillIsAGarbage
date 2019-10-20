@@ -19,17 +19,19 @@ class GameManager {
     }
 
     update() {
-        this.total_delta += engine.getDeltaTime();
-        if (this.total_delta > 3000) {
-            this.total_delta -= 3000;
-            this.fuel -= 1;
-            
-        }
-        if (this.fuel < 0 || this.hp < 0) {
+        if (this.fuel <= 0 || this.hp <= 0) {
             this.onDamage();
         }
         this.updateUi()
     }
+	
+	useFuel(fuel) {
+        this.total_delta += fuel * engine.getDeltaTime();
+        while (this.total_delta > 10000) {
+            this.total_delta -= 10000;
+            this.fuel -= 1;
+        }
+	}
 
     onCollect(scrap) {
         delete Scrap1.scraps[Scrap1.scraps.indexOf(scrap)];
@@ -44,8 +46,7 @@ class GameManager {
 
     onDamage() {
         console.log("dead")
-        console.log(SceneMain.spacecraft.model.position
-        );
+        console.log(SceneMain.spacecraft.model.position);
     }
 
 

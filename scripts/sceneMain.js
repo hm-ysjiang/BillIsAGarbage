@@ -39,16 +39,13 @@ class SceneMain {
             s.update();
         }))
         SceneMain.hookEvents();
+        SceneMain.gameManager.start();
         assetsMgr.load();
-        SceneMain.gameManager.start()
     }
 
     static hookEvents() {
         SceneMain.scene.registerAfterRender(() => {
             Scrap1.scraps.forEach((v) => {
-                if (SceneMain.spacecraft.model.collector.intersectsMesh(v.model.collibox)) {
-                    SceneMain.gameManager.onCollect(v);
-                }
                 if (SceneMain.spacecraft.model.collibox.intersectsMesh(v.model.collibox)) {
                     SceneMain.gameManager.onHit(v);
                 }

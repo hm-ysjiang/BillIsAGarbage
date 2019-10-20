@@ -47,6 +47,7 @@ class SceneTutorial{
 		panelBtn.z = 10;
 		manager.addControl(panelBtn);
 		
+		/*
 		SceneTutorial.spacecraft = new Spacecraft(scene, new BABYLON.AssetsManager(scene), cam);
 		SceneTutorial.spacecraft.setup();
 		SceneTutorial.spacecraft.assetsManager.load()
@@ -54,6 +55,7 @@ class SceneTutorial{
 		SceneTutorial.spacecraft.model.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI / 6);
 		SceneTutorial.spacecraft.model.rotate(new BABYLON.Vector3(1, 0, 0), Math.PI / 6);
         SceneTutorial.spacecraft.model.scaling = new BABYLON.Vector3(0.075, 0.075, 0.075)
+		*/
 		
 		let tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(tmpBtn);
