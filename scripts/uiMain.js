@@ -5,11 +5,13 @@ class UiMain extends SceneNode {
         let panelTxt2 = new BABYLON.GUI.Rectangle();
         let panelTxt3 = new BABYLON.GUI.Rectangle();
         let panelTxt4 = new BABYLON.GUI.Rectangle();
+        let panelTxt5 = new BABYLON.GUI.Rectangle();
 
         adv.addControl(panelTxt1);
         adv.addControl(panelTxt2);
         adv.addControl(panelTxt3);
         adv.addControl(panelTxt4);
+        adv.addControl(panelTxt5);
 
         panelTxt1.width = "150px";
         panelTxt1.height = "100px";
@@ -47,25 +49,38 @@ class UiMain extends SceneNode {
         panelTxt4.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         panelTxt4.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
 
+        panelTxt5.width = "150px";
+        panelTxt5.height = "100px";
+        panelTxt5.isVertical = true;
+        panelTxt5.fontSize = 24;
+        panelTxt5.thickness = 0;
+        panelTxt5.top = "95";
+        panelTxt5.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        panelTxt5.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+
         this.txtHp = new BABYLON.GUI.TextBlock("");
         this.txtFuel = new BABYLON.GUI.TextBlock("");
         this.txtMoney = new BABYLON.GUI.TextBlock("");
         this.txtHeight = new BABYLON.GUI.TextBlock("");
+        this.txtScore = new BABYLON.GUI.TextBlock("");
 
         panelTxt1.addControl(this.txtHp);
         panelTxt2.addControl(this.txtFuel);
         panelTxt3.addControl(this.txtMoney);
         panelTxt4.addControl(this.txtHeight);
+        panelTxt5.addControl(this.txtScore);
 
         this.txtHp.text = "HP: 100";
         this.txtFuel.text = "Fuel: 100%";
         this.txtMoney.text = "$ 0";
         this.txtHeight.text = "$ 0";
+        this.txtScore.text = "Score: ";
 
         this.txtHp.color = "white";
         this.txtFuel.color = "white";
         this.txtMoney.color = "white";
         this.txtHeight.color = "white";
+        this.txtScore.color = "white";
     }
 
     update() {

@@ -16,6 +16,7 @@ class GameManager {
         this.uiMain.txtFuel.text = "Fuel: " + this.fuel + "%";
         this.uiMain.txtMoney.text = "$ " + this.money;
         this.uiMain.txtHeight.text = "Height: " + ((SceneMain.spacecraft.model.position.length() - 510) * 12.5).numberFormat(2, '.', ',') + "Km";
+        this.uiMain.txtScore.text = "Score: " + this.score;
     }
 
     update() {
