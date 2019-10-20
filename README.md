@@ -1,7 +1,7 @@
 # BillIsAGarbage
-A web-based mini game that simulates space-garbage collecting, and teaches people the danger of space garbage. 
+A web-based mini game written in JavaScript using Babylon.js that simulates space-garbage collecting, and teaches people the danger of space garbage. 
 
-This is a project repository of our team work in NASA Space Apps Challenge 2019
+This is a project repository of our team(AmylikesBill)'s work in the NASA Space Apps Challenge 2019
 
 #
 # How to run
@@ -14,6 +14,8 @@ Or you can run ```python -m http.server <port>``` in the root directory
 After the local server is started, you can connect to ```127.0.0.1:<port>``` using a Web Browser
 
 OR, run our hosted version: http://billisagarbage.nctu.me/
+
+Do NOTE that the hosted version will be the latest stable commit, if you want to try the newest things you'll have to run it yourself.
 
 #
 # License
