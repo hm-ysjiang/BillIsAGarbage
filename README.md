@@ -1,5 +1,5 @@
 # BillIsAGarbage
-A web-based mini game that simulates space-garbage collecting, and teaches people the danger of space garbae. 
+A web-based mini game that simulates space-garbage collecting, and teaches people the danger of space garbage. 
 
 This is a project repository of our team work in NASA Space Apps Challenge 2019
 
