@@ -15,7 +15,7 @@ class GameManager {
         this.uiMain.txtHp.text = "Hp: " + this.hp;
         this.uiMain.txtFuel.text = "Fuel: " + this.fuel + "%";
         this.uiMain.txtMoney.text = "$ " + this.money;
-        this.uiMain.txtHeight.text = "Height: " + ((SceneMain.spacecraft.model.position.length() - 510) * 12.5).numberFormat(2, '.', ',') + "Km";
+        this.uiMain.txtHeight.text = "Height: " + (SceneMain.spacecraft.model.position.length() * 12.5).numberFormat(2, '.', ',') + "Km";
     }
 
     update() {
@@ -24,14 +24,14 @@ class GameManager {
         }
         this.updateUi()
     }
-
-    useFuel(fuel) {
+	
+	useFuel(fuel) {
         this.total_delta += fuel * engine.getDeltaTime();
         while (this.total_delta > 10000) {
             this.total_delta -= 10000;
             this.fuel -= 1;
         }
-    }
+	}
 
     onCollect(scrap) {
         delete Scrap1.scraps[Scrap1.scraps.indexOf(scrap)];
@@ -40,10 +40,8 @@ class GameManager {
         this.score += 10;
     }
 
-    onHit(scrap) {
-        delete Scrap1.scraps[Scrap1.scraps.indexOf(scrap)];
-        scrap.model.dispose()
-        this.hp -= Math.floor(Math.random() * 10) + 5;
+    onHit() {
+        this.hp -= 1;
     }
 
     onDamage() {

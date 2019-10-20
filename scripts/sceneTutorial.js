@@ -4,7 +4,6 @@ class SceneTutorial{
 	static scene = null;
 	static camera = null;
 	static manager = null;
-	static spacecraft = null;
 	
 	static setup() {
 		SceneTutorial.manager = new BABYLON.GUI.GUI3DManager(SceneTutorial.scene);
