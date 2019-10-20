@@ -53,19 +53,9 @@ class SceneMain {
         SceneMain.scene.registerAfterRender(() => {
             Scrap1.scraps.forEach((v) => {
                 if (SceneMain.spacecraft.model.collibox.intersectsMesh(v.model.collibox)) {
-                    let v1 = SceneMain.spacecraft.model.position.subtract(SceneMain.camera.position);
-                    let v2 = v.model.position.subtract(SceneMain.camera.position);
-                    console.log(BABYLON.Vector3.Dot(v1, v2) / v1.length() / v2.length() > Math.cos(Math.PI / 3))
-                    if (BABYLON.Vector3.Dot(v1, v2) / v1.length() / v2.length() > 0) {
-                        SceneMain.gameManager.onCollect(v);
-                    }
-                    else {
-                        SceneMain.gameManager.onHit(v);
-                    }
-
+                    SceneMain.gameManager.onHit(v);
                 }
-            }
-            )
+            })
             if (SceneMain.spacecraft.model.collibox.intersectsMesh(SceneMain.earth.model.collibox)) {
                 SceneMain.gameManager.onDamage();
             }

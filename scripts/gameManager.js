@@ -31,14 +31,14 @@ class GameManager {
         }
         this.updateUi()
     }
-
-    useFuel(fuel) {
+	
+	useFuel(fuel) {
         this.total_delta += fuel * engine.getDeltaTime();
         while (this.total_delta > 10000) {
             this.total_delta -= 10000;
             this.fuel -= 1;
         }
-    }
+	}
 
     onCollect(scrap) {
         delete Scrap1.scraps[Scrap1.scraps.indexOf(scrap)];
@@ -47,10 +47,8 @@ class GameManager {
         this.score += 10;
     }
 
-    onHit(scrap) {
-        delete Scrap1.scraps[Scrap1.scraps.indexOf(scrap)];
-        scrap.model.dispose()
-        this.hp -= Math.floor(Math.random() * 10) + 5;
+    onHit() {
+        this.hp -= 1;
     }
 
     onDamage() {
