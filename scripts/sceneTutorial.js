@@ -18,6 +18,11 @@ class SceneTutorial{
 		grayMaterial.emissiveColor = new BABYLON.Color3(0.3, 0.3, 0.3);
 		grayMaterial.ambientColor = new BABYLON.Color3(0.3, 0.3, 0.3);
 		grayMaterial.alpha = 0.5;
+		let grayMaterialNoAlp = new BABYLON.StandardMaterial("grayMaterialNoAlp", scene);
+		grayMaterialNoAlp.diffuseColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+		grayMaterialNoAlp.specularColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+		grayMaterialNoAlp.emissiveColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+		grayMaterialNoAlp.ambientColor = new BABYLON.Color3(0.3, 0.3, 0.3);
 		
 		cam.gamepadMoveSensibility = 0.00001;
 		cam.inputs.clear();
@@ -40,21 +45,19 @@ class SceneTutorial{
 				(new BABYLON.Plane(0, 1, 0, 2)).normalize()});
 		ground.material = grayMaterial;
 		ground.position.z = -5
+		ground = BABYLON.MeshBuilder.CreatePlane("ground2", {height: 15, width: 7, sourcePlane: 
+				(new BABYLON.Plane(0, -1, 0, 1.5)).normalize()});
+		ground.material = grayMaterialNoAlp;
+		ground.position.z = -5
+		ground = BABYLON.MeshBuilder.CreatePlane("ground3", {height: 15, width: 7, sourcePlane: 
+				(new BABYLON.Plane(0, 1, 0, -2.5)).normalize()});
+		ground.material = grayMaterial;
+		ground.position.z = -5
 		
 		let panelBtn = new BABYLON.GUI.PlanePanel();
 		panelBtn.margin = 0.1;
 		panelBtn.z = 10;
 		manager.addControl(panelBtn);
-		
-		/*
-		SceneTutorial.spacecraft = new Spacecraft(scene, new BABYLON.AssetsManager(scene), cam);
-		SceneTutorial.spacecraft.setup();
-		SceneTutorial.spacecraft.assetsManager.load()
-		SceneTutorial.spacecraft.model.position = new BABYLON.Vector3(1, 12, 30)
-		SceneTutorial.spacecraft.model.rotate(new BABYLON.Vector3(0, 1, 0), Math.PI / 6);
-		SceneTutorial.spacecraft.model.rotate(new BABYLON.Vector3(1, 0, 0), Math.PI / 6);
-        SceneTutorial.spacecraft.model.scaling = new BABYLON.Vector3(0.075, 0.075, 0.075)
-		*/
 		
 		let tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(tmpBtn);
@@ -100,9 +103,81 @@ class SceneTutorial{
 				console.log("Switch to Menu Scene");
 			}
 		});
-		exitBtn.height = 500;
-		exitBtn.width = 500;
+		//exitBtn.height = 500;
+		//exitBtn.width = 500;
 		panelBtn.columns = 4;
+		
+		// The Death msg
+		panelBtn = new BABYLON.GUI.PlanePanel();
+		panelBtn.margin = 0.1;
+		panelBtn.z = 10;
+		panelBtn.y = 4.5
+		manager.addControl(panelBtn);
+		
+		tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
+		panelBtn.addControl(tmpBtn);
+		tmpBtn.y = 4.5
+		//tmpBtn.text = "Instruction";
+		btnMaterial = new BABYLON.StandardMaterial("btnMaterial", scene);
+		buttonTexture = new BABYLON.Texture("media/textures/death/01.jpg", scene);
+		btnMaterial.diffuseTexture = buttonTexture
+		btnMaterial.specularTexture = buttonTexture
+		btnMaterial.emissiveTexture = buttonTexture
+		btnMaterial.ambientTexture = buttonTexture
+		tmpBtn.mesh.material = btnMaterial;
+		
+		tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
+		panelBtn.addControl(tmpBtn);
+		tmpBtn.y = 4.5
+		//tmpBtn.text = "Story";
+		btnMaterial = new BABYLON.StandardMaterial("btnMaterial", scene);
+		buttonTexture = new BABYLON.Texture("media/textures/death/02.jpg", scene);
+		btnMaterial.diffuseTexture = buttonTexture
+		btnMaterial.specularTexture = buttonTexture
+		btnMaterial.emissiveTexture = buttonTexture
+		btnMaterial.ambientTexture = buttonTexture
+		tmpBtn.mesh.material = btnMaterial;
+		
+		tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
+		panelBtn.addControl(tmpBtn);
+		tmpBtn.y = 4.5
+		//tmpBtn.text = "Story";
+		btnMaterial = new BABYLON.StandardMaterial("btnMaterial", scene);
+		buttonTexture = new BABYLON.Texture("media/textures/death/03.jpg", scene);
+		btnMaterial.diffuseTexture = buttonTexture
+		btnMaterial.specularTexture = buttonTexture
+		btnMaterial.emissiveTexture = buttonTexture
+		btnMaterial.ambientTexture = buttonTexture
+		tmpBtn.mesh.material = btnMaterial;
+		
+		tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
+		panelBtn.addControl(tmpBtn);
+		tmpBtn.y = 4.5
+		//tmpBtn.text = "Story";
+		btnMaterial = new BABYLON.StandardMaterial("btnMaterial", scene);
+		buttonTexture = new BABYLON.Texture("media/textures/death/04.jpg", scene);
+		btnMaterial.diffuseTexture = buttonTexture
+		btnMaterial.specularTexture = buttonTexture
+		btnMaterial.emissiveTexture = buttonTexture
+		btnMaterial.ambientTexture = buttonTexture
+		tmpBtn.mesh.material = btnMaterial;
+		
+		exitBtn = new BABYLON.GUI.HolographicButton("orientation");
+		panelBtn.addControl(exitBtn);
+		exitBtn.y = 4.5
+		exitBtn.text = "Return to Menu";
+		exitBtn.onPointerDownObservable.add(()=>{
+			if (SceneTutorial.hasFocus()){
+				scenePhase = 0;
+				cam.detachControl();
+				SceneMenu.camera.attachControl(canvas, true);
+				console.log("Switch to Menu Scene");
+			}
+		});
+		//exitBtn.height = 500;
+		//exitBtn.width = 500;
+		panelBtn.columns = 5;
+		panelBtn.rows = 0;
 	}
 
     static translateByInput(scene, cam) {
@@ -123,10 +198,10 @@ class SceneTutorial{
 			cam.position.addInPlace(rightV.scale(vel, vel, vel));
         }
 		
-		if (Math.abs(cam.position.x) > 7.5){
+		/*if (Math.abs(cam.position.x) > 7.5){
 			cam.position.x = cam.position.x > 7.5 ? 7.5 : -7.5;
 			console.log("Player reached the border");
-		}
+		}*/
 		if (cam.position.z > -1.5){
 			cam.position.z = -1.5;
 			console.log("Player reached the border");

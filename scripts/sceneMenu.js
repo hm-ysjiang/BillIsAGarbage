@@ -77,6 +77,7 @@ class SceneMenu {
 				scenePhase = 1;
 				cam.detachControl();
 				SceneTutorial.camera.attachControl(canvas, true);
+				SceneTutorial.camera.position = new BABYLON.Vector3(0, 0, -5);
 				console.log("Switch to Tutorial Scene");
 			}
 		});
