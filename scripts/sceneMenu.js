@@ -59,6 +59,9 @@ class SceneMenu {
 		btnPlay.mesh.material = btnMaterial;
 		btnPlay.onPointerDownObservable.add(() => {
 			if (SceneMenu.hasFocus()) {
+				if (SceneMain.gameManager.played) {
+					SceneMain.reset();
+				}
 				scenePhase = 2;
 				cam.detachControl();
 				SceneMain.camera.attachControl(canvas, true);
