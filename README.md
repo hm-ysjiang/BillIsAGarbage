@@ -9,7 +9,7 @@ To run this locally, you have to run a localhost server, for example, using Pyth
 
 For Windows, make sure you have Python3 installed and run ```localhost_py.bat```
 
-Or you can run ```python -m http.server``` in the root directory
+Or you can run ```python -m http.server <port>``` in the root directory
 
 After the local server is started, you can connect to ```127.0.0.1:<port>``` using a Web Browser
 
