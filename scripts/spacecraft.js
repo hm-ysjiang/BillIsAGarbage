@@ -34,7 +34,6 @@ class Spacecraft extends SceneNode {
 
     update() {
         if (this.model != null) {
-			console.log(this.scene.inputMap)
             let curCamLook = this.camera.getFrontPosition(1);
             if (this.preventGimbal(curCamLook)) {
                 this.model.forward = this.prevForward;
