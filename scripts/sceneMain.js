@@ -16,6 +16,7 @@ class SceneMain {
         let scene = SceneMain.scene;
         let assetsMgr = SceneMain.assetsManager;
         let cam = SceneMain.camera;
+		let sp = SceneMain.spacecraft;
 
         cam.noRotationConstraint = true;
         cam.inputs.clear();
@@ -41,6 +42,19 @@ class SceneMain {
         SceneMain.hookEvents();
         SceneMain.gameManager.start();
         assetsMgr.load();
+		
+		scene.onPointerObservable.add( function(pointerInfo, eventState) {
+			if (pointer.event.button == 0)
+				sp.startAccel();
+			else if (pointer.event.button == 2)
+				sp.startBrake();
+		}, BABYLON.PointerEventTypes.POINTERDOWN, false);
+		scene.onPointerObservable.add( function(pointerInfo, eventState) {
+			if (pointer.event.button == 0)
+				sp.stopAccel();
+			else if (pointer.event.button == 2)
+				sp.stopBrake();
+		}, BABYLON.PointerEventTypes.POINTERUP, false);
     }
 
     static reset() {
