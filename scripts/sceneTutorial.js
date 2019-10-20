@@ -78,6 +78,17 @@ class SceneTutorial{
 		btnMaterial.ambientTexture = buttonTexture
 		tmpBtn.mesh.material = btnMaterial;
 		
+		tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
+		panelBtn.addControl(tmpBtn);
+		//tmpBtn.text = "Story";
+		btnMaterial = new BABYLON.StandardMaterial("btnMaterial", scene);
+		buttonTexture = new BABYLON.Texture("media/textures/tutorial/03.jpg", scene);
+		btnMaterial.diffuseTexture = buttonTexture
+		btnMaterial.specularTexture = buttonTexture
+		btnMaterial.emissiveTexture = buttonTexture
+		btnMaterial.ambientTexture = buttonTexture
+		tmpBtn.mesh.material = btnMaterial;
+		
 		let exitBtn = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(exitBtn);
 		exitBtn.text = "Exit";
@@ -91,7 +102,7 @@ class SceneTutorial{
 		});
 		exitBtn.height = 500;
 		exitBtn.width = 500;
-		panelBtn.columns = 3;
+		panelBtn.columns = 4;
 	}
 
     static translateByInput(scene, cam) {
