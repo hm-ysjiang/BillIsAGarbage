@@ -16,7 +16,6 @@ class SceneMain {
         let scene = SceneMain.scene;
         let assetsMgr = SceneMain.assetsManager;
         let cam = SceneMain.camera;
-		let sp = SceneMain.spacecraft;
 
         cam.noRotationConstraint = true;
         cam.inputs.clear();
@@ -44,16 +43,16 @@ class SceneMain {
         assetsMgr.load();
 		
 		scene.onPointerObservable.add( function(pointerInfo, eventState) {
-			if (pointer.event.button == 0)
-				sp.startAccel();
-			else if (pointer.event.button == 2)
-				sp.startBrake();
+			if (pointerInfo.event.button == 0)
+				SceneMain.spacecraft.startAccel();
+			else if (pointerInfo.event.button == 2)
+				SceneMain.spacecraft.startBrake();
 		}, BABYLON.PointerEventTypes.POINTERDOWN, false);
 		scene.onPointerObservable.add( function(pointerInfo, eventState) {
-			if (pointer.event.button == 0)
-				sp.stopAccel();
-			else if (pointer.event.button == 2)
-				sp.stopBrake();
+			if (pointerInfo.event.button == 0)
+				SceneMain.spacecraft.stopAccel();
+			else if (pointerInfo.event.button == 2)
+				SceneMain.spacecraft.stopBrake();
 		}, BABYLON.PointerEventTypes.POINTERUP, false);
     }
 
@@ -78,8 +77,7 @@ class SceneMain {
                     }
 
                 }
-            }
-            )
+            });
             if (SceneMain.spacecraft.model.collibox.intersectsMesh(SceneMain.earth.model.collibox)) {
                 SceneMain.gameManager.onDamage();
             }
