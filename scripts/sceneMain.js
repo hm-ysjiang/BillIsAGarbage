@@ -43,6 +43,12 @@ class SceneMain {
         assetsMgr.load();
     }
 
+    static reset() {
+        SceneMain.spacecraft.reset();
+        SceneMain.gameManager.reset();
+        Scrap1.reset();
+    }
+
     static hookEvents() {
         SceneMain.scene.registerAfterRender(() => {
             Scrap1.scraps.forEach((v) => {

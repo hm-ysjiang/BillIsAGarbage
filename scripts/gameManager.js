@@ -1,21 +1,28 @@
 class GameManager {
     constructor(uiMain) {
+        this.uiMain = uiMain;
+        this.reset();
+    }
+
+    reset() {
         this.hp = 100;
         this.money = 0;
         this.fuel = 100;
         this.score = 0;
-        this.uiMain = uiMain;
         this.total_delta = 0;
+        this.played = false;
     }
 
     start() {
+        this.played = true;
     }
 
     updateUi() {
         this.uiMain.txtHp.text = "Hp: " + this.hp;
         this.uiMain.txtFuel.text = "Fuel: " + this.fuel + "%";
         this.uiMain.txtMoney.text = "$ " + this.money;
-        this.uiMain.txtHeight.text = "Height: " + (SceneMain.spacecraft.model.position.length() * 12.5).numberFormat(2, '.', ',') + "Km";
+        this.uiMain.txtHeight.text = "Height: " + ((SceneMain.spacecraft.model.position.length() - 510) * 12.5).numberFormat(2, '.', ',') + "Km";
+        this.uiMain.txtScore.text = "Score: " + this.score;
     }
 
     update() {

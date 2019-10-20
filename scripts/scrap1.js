@@ -1,9 +1,13 @@
 class Scrap1 {
 	static scraps = []
-	static setup(scene, assetsMgr){
+	static scene = null
+	static mesh = null
+	static setup(scene, assetsMgr) {
+		Scrap1.scene = scene
 		assetsMgr.addMeshTask('meshs', "", "mesh/", "mithra.stl").onSuccess = (function (task) {
 
 			task.loadedMeshes.forEach(mesh => {
+				Scrap1.mesh = mesh
 				// leave meshes already parented to maintain model hierarchy:
 				if (!mesh.parent) {
 					for (let i = 0 ; i<500 ; i++){
@@ -17,6 +21,15 @@ class Scrap1 {
 		}).bind(this);
 	}
 	
+	static reset() {
+		let l = Scrap1.scraps.length
+		for (let i = 0; i < 500 - l; i++) {
+			let tmp = new Scrap1(Scrap1.scene, Scrap1.mesh.createInstance());
+			Scrap1.scraps.push(tmp);
+			SceneMain.addSetupedNode(tmp);
+		}
+	}
+
 	constructor(scene, mesh){
 		this.scene = scene;
         this.model = new BABYLON.TransformNode();
