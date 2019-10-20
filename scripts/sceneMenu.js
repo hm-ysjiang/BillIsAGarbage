@@ -59,9 +59,6 @@ class SceneMenu {
 		btnPlay.mesh.material = btnMaterial;
 		btnPlay.onPointerDownObservable.add(() => {
 			if (SceneMenu.hasFocus()) {
-				if (SceneMain.gameManager.played) {
-					SceneMain.reset();
-				}
 				scenePhase = 2;
 				cam.detachControl();
 				SceneMain.camera.attachControl(canvas, true);
@@ -78,6 +75,7 @@ class SceneMenu {
 				cam.detachControl();
 				SceneTutorial.camera.attachControl(canvas, true);
 				SceneTutorial.camera.position = new BABYLON.Vector3(0, 0, -5);
+				SceneTutorial.camera.setTarget(new BABYLON.Vector3(0, 0, 0));
 				console.log("Switch to Tutorial Scene");
 			}
 		});

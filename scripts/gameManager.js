@@ -54,10 +54,15 @@ class GameManager {
     }
 
     onDamage() {
-        console.log("dead")
-        console.log(SceneMain.spacecraft.model.position);
+        console.log("playerDied")
+		scenePhase = 1;
+		SceneMain.camera.detachControl();
+		SceneTutorial.camera.attachControl(canvas, true);
+		SceneTutorial.camera.position = new BABYLON.Vector3(-2.5, 4.5, -5)
+		SceneTutorial.camera.setTarget(new BABYLON.Vector3(-2.5, 4.5, 0));
+		console.log("Switch to Death Scene");
+		SceneMain.reset();
     }
-
 
     onHome() {
         if (this.money > (100 - this.fuel)) {

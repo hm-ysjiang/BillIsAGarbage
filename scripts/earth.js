@@ -2,7 +2,7 @@ class Earth extends SceneNode {
     setup() {
         this.model = new BABYLON.TransformNode();
 
-        this.model.collibox = new BABYLON.MeshBuilder.CreateSphere("earth", { diameter: 610 }, this.scene);
+        this.model.collibox = new BABYLON.MeshBuilder.CreateSphere("earth", { diameter: 720 }, this.scene);
         this.model.collibox.visibility = false;
         this.model.collibox.parent = this.model;
 

@@ -56,7 +56,6 @@ class SceneTutorial{
 		
 		let panelBtn = new BABYLON.GUI.PlanePanel();
 		panelBtn.margin = 0.1;
-		panelBtn.z = 10;
 		manager.addControl(panelBtn);
 		
 		let tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
@@ -110,13 +109,11 @@ class SceneTutorial{
 		// The Death msg
 		panelBtn = new BABYLON.GUI.PlanePanel();
 		panelBtn.margin = 0.1;
-		panelBtn.z = 10;
-		panelBtn.y = 4.5
 		manager.addControl(panelBtn);
+		panelBtn.position.y = 4.5
 		
 		tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(tmpBtn);
-		tmpBtn.y = 4.5
 		//tmpBtn.text = "Instruction";
 		btnMaterial = new BABYLON.StandardMaterial("btnMaterial", scene);
 		buttonTexture = new BABYLON.Texture("media/textures/death/01.jpg", scene);
@@ -128,7 +125,6 @@ class SceneTutorial{
 		
 		tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(tmpBtn);
-		tmpBtn.y = 4.5
 		//tmpBtn.text = "Story";
 		btnMaterial = new BABYLON.StandardMaterial("btnMaterial", scene);
 		buttonTexture = new BABYLON.Texture("media/textures/death/02.jpg", scene);
@@ -140,7 +136,6 @@ class SceneTutorial{
 		
 		tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(tmpBtn);
-		tmpBtn.y = 4.5
 		//tmpBtn.text = "Story";
 		btnMaterial = new BABYLON.StandardMaterial("btnMaterial", scene);
 		buttonTexture = new BABYLON.Texture("media/textures/death/03.jpg", scene);
@@ -152,7 +147,6 @@ class SceneTutorial{
 		
 		tmpBtn = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(tmpBtn);
-		tmpBtn.y = 4.5
 		//tmpBtn.text = "Story";
 		btnMaterial = new BABYLON.StandardMaterial("btnMaterial", scene);
 		buttonTexture = new BABYLON.Texture("media/textures/death/04.jpg", scene);
@@ -164,7 +158,6 @@ class SceneTutorial{
 		
 		exitBtn = new BABYLON.GUI.HolographicButton("orientation");
 		panelBtn.addControl(exitBtn);
-		exitBtn.y = 4.5
 		exitBtn.text = "Return to Menu";
 		exitBtn.onPointerDownObservable.add(()=>{
 			if (SceneTutorial.hasFocus()){
@@ -177,7 +170,6 @@ class SceneTutorial{
 		//exitBtn.height = 500;
 		//exitBtn.width = 500;
 		panelBtn.columns = 5;
-		panelBtn.rows = 0;
 	}
 
     static translateByInput(scene, cam) {
