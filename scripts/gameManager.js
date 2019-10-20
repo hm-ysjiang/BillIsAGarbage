@@ -1,14 +1,20 @@
 class GameManager {
     constructor(uiMain) {
+        this.uiMain = uiMain;
+        this.reset();
+    }
+
+    reset() {
         this.hp = 100;
         this.money = 0;
         this.fuel = 100;
         this.score = 0;
-        this.uiMain = uiMain;
         this.total_delta = 0;
+        this.played = false;
     }
 
     start() {
+        this.played = true;
     }
 
     updateUi() {
