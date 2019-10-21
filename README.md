@@ -1,5 +1,5 @@
 # BillIsAGarbage
-A web-based mini game written in JavaScript using Babylon.js that simulates space-garbage collecting, and teaches people the danger of space garbage. 
+A web-based mini game written in JavaScript using Babylon.js that simulates space debris collecting, and teaches people the danger of space garbage. 
 
 This is a project repository of our team(AmylikesBill)'s work in the NASA Space Apps Challenge 2019
 
